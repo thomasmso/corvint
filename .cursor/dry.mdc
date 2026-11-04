@@ -1,0 +1,50 @@
+---
+description: Don't repeat yourself — extract shared logic into helpers
+globs: **/*.py
+alwaysApply: false
+---
+
+# DRY (Don't Repeat Yourself)
+
+When you find the **same logic copy-pasted** in two or more places, extract it into a private helper. This is especially important when the duplication touches index math, data manipulation, or anything that could silently drift if one copy is updated and the other isn't.
+
+When introducing a new function, scan nearby code for similar patterns first; prefer extending an existing helper over creating a parallel one.
+
+```python
+# BAD: same val-from-train carving logic copy-pasted in two splitters
+def country_holdout_split(...):
+    ...
+    if not val_idx and val_size > 0:
+        meta_train = meta.iloc[train_idx].reset_index(drop=True)
+        tr_sub, vl_sub = _group_split(meta_train, val_size, seed, ...)
+        val_idx = [train_idx[i] for i in vl_sub]
+        train_idx = [train_idx[i] for i in tr_sub]
+
+def temporal_split(...):
+    ...
+    if not val_idx and val_size > 0:
+        meta_train = meta.iloc[train_idx].reset_index(drop=True)
+        tr_sub, vl_sub = _group_split(meta_train, val_size, seed, ...)
+        val_idx = [train_idx[i] for i in vl_sub]
+        train_idx = [train_idx[i] for i in tr_sub]
+
+# GOOD: shared logic lives in one place
+def _carve_val_from_train(meta, train_idx, val_size, seed, group_col, label_col):
+    ...
+
+def country_holdout_split(...):
+    ...
+    if not val_idx:
+        train_idx, val_idx = _carve_val_from_train(meta, train_idx, val_size, seed, ...)
+
+def temporal_split(...):
+    ...
+    if not val_idx:
+        train_idx, val_idx = _carve_val_from_train(meta, train_idx, val_size, seed, ...)
+```
+
+## When NOT to DRY
+
+Don't force shared abstractions when the similarity is **superficial**. Two snippets that happen to look alike but represent different concepts (e.g. "load model config" vs "load experiment config") should stay separate — premature consolidation creates worse coupling than duplication.
+
+Rule of thumb: extract once you see the **third** occurrence, or sooner if the duplicated code is non-trivial (>3 lines of meaningful logic).

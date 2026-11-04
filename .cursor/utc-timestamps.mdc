@@ -1,0 +1,40 @@
+---
+description: Always use UTC for timestamps where possible
+alwaysApply: true
+---
+
+# Use UTC for Timestamps
+
+Default to UTC for any timestamp that may be persisted (CSV/JSON/DB rows, log
+files, filenames) or shared across machines. Local-tz timestamps are ambiguous
+once they leave the machine that wrote them.
+
+Local time is acceptable only when rendering for a human in real time (e.g. a
+console log line on someone's laptop), and even then UTC is fine.
+
+## Python
+
+```python
+# BAD — naive, local-tz, ambiguous
+from datetime import datetime
+ts = datetime.now().isoformat(timespec="seconds")
+# -> "2026-05-09T23:12:05"
+
+# GOOD — tz-aware, unambiguous
+from datetime import datetime, timezone
+ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+# -> "2026-05-09T18:12:05+00:00"
+```
+
+Avoid `datetime.utcnow()` — it returns a naive datetime and is deprecated as
+of Python 3.12.
+
+## Filenames / date stamps
+
+Date-only stamps in filenames (e.g. `dhshealth_2026-05-09.csv`) are also
+ambiguous near midnight. Prefer UTC there too:
+
+```python
+from datetime import datetime, timezone
+stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+```

@@ -1,0 +1,25 @@
+---
+description: Prefer string_utils.default_if_empty for string fallbacks
+globs: **/*.py
+alwaysApply: false
+---
+
+# Use `default_if_empty` for String Fallbacks
+
+When normalizing optional string inputs (CSV/env/config/request values), prefer
+`string_utils.default_if_empty(value, default)` over inline empty checks.
+
+```python
+# BAD
+reason = row[1] if len(row) > 1 else None
+reason = reason.strip() if reason and reason.strip() else "no reason recorded"
+
+# GOOD
+reason = string_utils.default_if_empty(row[1], "no reason recorded")
+```
+
+Also replace ad-hoc forms like:
+`value.strip() if value and value.strip() else fallback`
+
+Keep explicit validation when a value is required and missing should raise, not
+silently default.

@@ -1,0 +1,39 @@
+---
+description: Match existing codebase conventions before introducing a new idiom
+alwaysApply: true
+---
+
+# Match Existing Conventions
+
+Before writing code in any component (`snapping_etl`, `gee_etl`, `dhs_etl`,
+`ml_pipeline`, `preprocessing`, `commons`), check how the **sibling components**
+already solve the same problem and follow that. Do not introduce a parallel
+idiom when an established one exists — consistency across components outranks
+personal preference.
+
+When adding a new function, file, or pattern, grep the repo for the same task
+first (filename parsing, logging, config, file IO, caching, docstrings) and copy
+the existing approach.
+
+## Known conventions (extend as discovered)
+
+- **Filename from a URL/path**: `Path(url).name` — not `url.rsplit("/", 1)[-1]`
+  or `os.path.basename(...)`. (See `dhs_etl/extract/extractor.py`.)
+- **Docstrings / comments**: single backticks `` `like_this` `` — never RST
+  double backticks ``` ``like_this`` ```.
+- **Logging**: root logger (`logging.info(...)`), f-strings, no per-module
+  `logger` object. (See `.cursor/rules/logging.mdc`.)
+- **Config**: frozen `@dataclass` `Config` + `CONFIG` singleton, env overrides,
+  `pathlib.Path`. (Mirror `config_gee.py` / `config_snapping.py`.)
+- **Timestamped files**: `commons.file_utils.make_timestamped_path` /
+  `find_latest_timestamped_file`, UTC stamps.
+
+## Examples
+
+```python
+# BAD — new idiom not used elsewhere in the repo
+dest = dest_dir / url.rsplit("/", 1)[-1]
+
+# GOOD — matches dhs_etl/extract/extractor.py
+dest = dest_dir / Path(url).name
+```

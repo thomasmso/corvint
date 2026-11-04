@@ -1,0 +1,23 @@
+---
+description: Function signature parameter ordering convention
+globs: **/*.py
+alwaysApply: false
+---
+
+# Function Signature Parameter Ordering
+
+Order parameters from **most specific** (task-relevant inputs) to **least specific** (ambient/context objects like `Context`, `Config`, loggers, sessions).
+
+Ambient/context-like parameters should come last.
+
+```python
+# BAD: ambient `ctx` comes first
+def train(ctx: Context, experiment: BaseExperiment) -> None: ...
+def tune(ctx: Context, experiment_factory, model_name: str, n_trials: int) -> None: ...
+
+# GOOD: specific inputs first, ambient `ctx` last
+def train(experiment: BaseExperiment, ctx: Context) -> None: ...
+def tune(experiment_factory, model_name: str, n_trials: int, ctx: Context) -> None: ...
+```
+
+When updating a signature to follow this rule, also update all call sites.

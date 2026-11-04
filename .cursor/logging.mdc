@@ -1,0 +1,50 @@
+---
+description: Use the root logger and f-strings — no per-module loggers, no %-style format specifiers
+globs: **/*.py
+alwaysApply: false
+---
+
+# Logging Conventions
+
+## 1. Use the root logger directly
+
+Don't create a per-module `logger` object. Call `logging.info(...)`, `logging.warning(...)`, etc. directly. This matches how `dhs_etl/`, `gee_etl/`, and the rest of the project log.
+
+```python
+# BAD: per-module logger object
+import logging
+
+logger = logging.getLogger(__name__)
+
+def transform():
+    logger.info("Starting...")
+
+# GOOD: root logger, no module-level boilerplate
+import logging
+
+def transform():
+    logging.info("Starting...")
+```
+
+## 2. Use f-strings, not `%`-style format specifiers
+
+f-strings are easier to read, harder to mismatch, and consistent with the rest of the codebase. Eager interpolation cost is negligible at INFO level.
+
+```python
+# BAD: % format specifiers (lazy formatting)
+logging.info("Loaded %d rows for %s", len(df), label)
+logging.warning("No manifest found: %s", e)
+
+# GOOD: f-strings
+logging.info(f"Loaded {len(df)} rows for {label}")
+logging.warning(f"No manifest found: {e}")
+```
+
+If a log line gets long, extract values into local variables first rather than reaching for `%`-style multi-arg form:
+
+```python
+# GOOD: extract first, then f-string
+sha = manifest["code"].get("git_sha", "")[:8]
+dirty = " (dirty)" if manifest["code"].get("git_dirty") else ""
+logging.info(f"Data lineage: version={manifest['version']} git={sha}{dirty}")
+```

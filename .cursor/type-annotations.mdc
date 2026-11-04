@@ -1,0 +1,32 @@
+---
+description: Require type annotations on all function parameters and return types
+globs: **/*.py
+alwaysApply: false
+---
+
+# Type Annotations
+
+All function definitions must annotate **every parameter** and the **return type**. This includes private helpers and lambdas assigned to named variables.
+
+- Use concrete types where known (e.g. `BaseExperiment`, `Path`, `pd.DataFrame`).
+- Use `None` as the return type for procedures that return nothing.
+- Prefer precise generics (`list[str]`, `dict[str, int]`) over bare `list`/`dict`.
+- Use `X | None` (PEP 604) rather than `Optional[X]`.
+
+```python
+# BAD: missing annotations
+def train(experiment, ctx):
+    ...
+
+def split_csv(value):
+    ...
+
+# GOOD: fully annotated
+def train(experiment: BaseExperiment, ctx: Context) -> None:
+    ...
+
+def split_csv(value: str | None) -> list[str] | None:
+    ...
+```
+
+When editing existing code, add missing annotations to any function you touch.

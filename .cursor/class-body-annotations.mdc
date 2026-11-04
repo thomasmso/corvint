@@ -1,0 +1,49 @@
+---
+description: Declare instance attributes as class-body annotations, not inline in __init__
+globs: **/*.py
+alwaysApply: false
+---
+
+# Class-Body Instance Attribute Annotations
+
+Declare instance attributes once as **class-body annotations** with no default
+value. This surfaces the class's full schema at the top of the definition and
+keeps `__init__` focused on wiring, not documenting field types one line at a
+time.
+
+```python
+# BAD: schema scattered through __init__; must read every line to learn what the class holds
+class PredictFutureYearExperiment(BaseExperiment):
+    def __init__(self, spec: PredictFutureYearExperimentTrainingSpec, ctx: Context) -> None:
+        super().__init__(spec, ctx)
+        self.test_year = spec.test_year
+        self.val_year = spec.val_year
+        self.hold_out_last_n_years = spec.hold_out_last_n_years
+
+# GOOD: schema declared up front; __init__ just wires it
+class PredictFutureYearExperiment(BaseExperiment):
+    test_year: int | None
+    val_year: int | None
+    hold_out_last_n_years: int | None
+
+    def __init__(self, spec: PredictFutureYearExperimentTrainingSpec, ctx: Context) -> None:
+        super().__init__(spec, ctx)
+        self.test_year = spec.test_year
+        self.val_year = spec.val_year
+        self.hold_out_last_n_years = spec.hold_out_last_n_years
+```
+
+## Rules
+
+- **No default value on the annotation.** Use `x: T`, not `x: T = None`. A
+  default creates a real class attribute that subclasses silently inherit,
+  hiding cases where `__init__` forgot to set it. The annotation-only form
+  fails loudly with `AttributeError`.
+- **No need to repeat the annotation inline.** Once `x: set[str] | None` is
+  declared on the class, `self.x = None` in `__init__` type-checks fine — drop
+  the inline `self.x: set[str] | None = None`.
+- **Declare on the class that owns the attribute.** A subclass re-declares only
+  the attributes it *adds*, never ones inherited from a parent.
+- **Skip dataclasses.** Their fields are already class-body annotated by the
+  `@dataclass` decorator; adding parallel annotations breaks the mechanism.
+  (Applies to e.g. `BaseTrainingSpec`, `Splits`, `Dataset`.)

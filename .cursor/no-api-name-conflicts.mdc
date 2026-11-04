@@ -1,0 +1,39 @@
+---
+description: Don't name modules or import bindings the same as well-known libraries/APIs
+globs: **/*.py
+alwaysApply: false
+---
+
+# Avoid Shadowing Library / API Names
+
+Don't give a module, or an imported name, the same name as a widely-used library
+or cloud API. Shadowing makes `from x import name` ambiguous and, when two
+imports bind the same name, the last one silently wins — so calls resolve to the
+wrong module and fail at runtime with a confusing `AttributeError`.
+
+High-risk names to avoid for your own modules: `storage`, `client`, `bucket`,
+`storage` extras (`google.cloud.storage`), `requests`, `json`, `logging`, `ee`,
+`pd`/`np`, `secrets`, `types`, `io`, `queue`, `task`.
+
+## Rules
+
+- Suffix shared helper modules so they read as utilities, matching this repo's
+  convention (`file_utils`, `gcs_utils`, `gee_utils`, `string_utils`,
+  `data_storage_utils`) — not bare `storage`, `utils`, `helpers`.
+- Never let two imports bind the same name in one file. If a clash is
+  unavoidable, alias one explicitly (`as`).
+
+## Example
+
+```python
+# BAD — both bind `storage`; whichever import is last wins, the other's calls break
+from google.cloud import storage
+from commons import storage          # shadows google.cloud.storage
+storage.Client()                     # AttributeError at runtime
+
+# GOOD — distinct module name (and a *_utils suffix)
+from google.cloud import storage
+from commons import data_storage_utils
+storage.Client()                     # google.cloud.storage
+data_storage_utils.write_csv(df, path)
+```
