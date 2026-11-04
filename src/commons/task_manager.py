@@ -175,7 +175,9 @@ class TaskManager:
         return results
 
     def shutdown(self) -> None:
-        """Shut down all executors. Safe to call multiple times."""
+        """
+        Shut down all executors. Safe to call multiple times.
+        """
         if self._process_executor:
             self._process_executor.shutdown(wait=True)
             self._process_executor = None
@@ -184,7 +186,9 @@ class TaskManager:
             self._thread_executor = None
 
     def _get_executor(self, executor_type: ExecutorType) -> Executor:
-        """Get the appropriate executor for the given executor type."""
+        """
+        Get the appropriate executor for the given executor type.
+        """
         if executor_type == ExecutorType.PROCESS:
             if self._process_executor is None:
                 raise RuntimeError("Process executor has been shut down")
@@ -196,7 +200,9 @@ class TaskManager:
 
 
 def _init_worker() -> None:
-    """Initialize logging for worker processes. Called once per worker at startup."""
+    """
+    Initialize logging for worker processes. Called once per worker at startup.
+    """
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(message)s",
@@ -206,5 +212,7 @@ def _init_worker() -> None:
 
 
 def _run_task(task: Task) -> Any:
-    """Wrapper to call task.run() - needed for pickling by ProcessPoolExecutor."""
+    """
+    Wrapper to call task.run() - needed for pickling by ProcessPoolExecutor.
+    """
     return task.run()

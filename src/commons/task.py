@@ -9,7 +9,9 @@ from typing import Any
 
 
 class ExecutorType(Enum):
-    """Type of executor to use for task execution."""
+    """
+    Type of executor to use for task execution.
+    """
 
     PROCESS = "process"  # ProcessPoolExecutor - uses separate CPU cores
     THREAD = "thread"  # ThreadPoolExecutor - lighter weight, shared memory
@@ -24,7 +26,9 @@ class Task(ABC):
 
     @abstractmethod
     def run(self) -> Any:
-        """Execute the task. Override in subclasses."""
+        """
+        Execute the task. Override in subclasses.
+        """
         pass
 
 
