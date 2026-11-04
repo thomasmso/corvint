@@ -1,0 +1,34 @@
+---
+description: Python docstrings open with """ on its own line
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python docstring layout
+
+Put the opening `"""` on its own line. Start the docstring text on the next line.
+Close with `"""` on its own line. Applies to module, class, function, method, and
+attribute docstrings.
+
+```python
+# BAD
+"""Short summary on the same line as the opener."""
+
+"""Summary starts on the opener line.
+
+More detail…
+"""
+
+# GOOD
+"""
+Short summary.
+"""
+
+"""
+Summary on its own line.
+
+More detail…
+"""
+```
+
+Do not reformat non-docstring triple-quoted literals (e.g. `INSTRUCTIONS = """\…`).
