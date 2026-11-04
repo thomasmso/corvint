@@ -1,1 +1,3 @@
-"""Deterministic, read-only repository tools (no LLM SDK imports)."""
+"""
+Deterministic, read-only repository tools (no LLM SDK imports).
+"""

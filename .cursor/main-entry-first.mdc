@@ -1,0 +1,44 @@
+---
+description: Put a module's main public entry near the top, helpers below
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Main entry first
+
+When a module has one primary public entry (the thing callers import for the
+module's job), define it near the top—right after imports, constants, and any
+types it needs as annotations/context. Put helpers and secondary APIs below.
+
+```python
+# GOOD — primary entry first; helpers resolve at call time
+async def audit_max_integration(...) -> AuditReport:
+    ...
+    findings, rejected = validate_findings(...)
+    ...
+
+def validate_findings(...): ...
+def _check_evidence(...): ...
+```
+
+```python
+# BAD — primary entry buried under helpers
+def _check_evidence(...): ...
+def validate_findings(...): ...
+async def audit_max_integration(...): ...
+```
+
+## Guidance
+
+- **One main entry**: e.g. `audit_max_integration`, `main`, `inspect_repository`,
+  `build_max_integration_agent`, `run_suite`.
+- **Types/context first**: dataclasses, TypedDicts, Pydantic models the entry uses
+  may stay above it.
+- **Call-time names are fine**: the entry may reference functions defined later in
+  the file; Python looks them up when the entry runs.
+- **Module-level values are not**: dicts/lists that call helpers at import time
+  (e.g. `PARSERS = {"Podfile": _parse_podfile}`) must still appear after those
+  helpers—or keep the registry below the entry and only use it inside the entry.
+- **Peer libraries**: modules that are a flat toolkit with several equal public
+  functions (e.g. `code_search`) need not force an artificial "main"; keep a
+  sensible public-then-private order.

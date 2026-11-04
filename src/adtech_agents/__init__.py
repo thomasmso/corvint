@@ -1,1 +1,3 @@
-"""v0: read-only AppLovin MAX integration auditor agent."""
+"""
+v0: read-only AppLovin MAX integration auditor agent.
+"""

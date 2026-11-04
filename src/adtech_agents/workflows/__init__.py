@@ -1,1 +1,3 @@
-"""Workflows that every interface (CLI, later HTTP) calls."""
+"""
+Workflows that every interface (CLI, later HTTP) calls.
+"""
