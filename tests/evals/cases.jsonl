@@ -1,0 +1,1 @@
+{"case_id": "ios_cocoapods_max", "fixture": "../fixtures/ios_cocoapods_max", "description": "Clean native iOS app: Podfile and Podfile.lock, initialized in AppDelegate."}

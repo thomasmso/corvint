@@ -1,0 +1,8 @@
+platform :ios, '13.0'
+use_frameworks!
+
+target 'PuzzleQuest' do
+  pod 'AppLovinSDK', '~> 13.6'
+  pod 'AppLovinMediationGoogleAdapter', '13.9.0.3'
+  pod 'AppLovinMediationUnityAdsAdapter'
+end
