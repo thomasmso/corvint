@@ -10,12 +10,14 @@ import logging
 from collections.abc import Sequence
 from pathlib import Path
 
+from agents import _debug as agents_debug
 from dotenv import find_dotenv, load_dotenv
 
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.evals import render_scores, run_suite
-from adtech_agents.workflows.audit import audit_max_integration
+from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
+from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -23,6 +25,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     load_dotenv(find_dotenv(usecwd=True))
     args = build_parser().parse_args(argv)
     config = Config()
+
     logging.basicConfig(level=config.LOG_LEVEL, format=config.LOG_FORMAT)
     if config.LOG_AGENT_DATA:
         agents_debug.DONT_LOG_MODEL_DATA = False
@@ -47,7 +50,11 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
     # TODO: Implement chat mode (then we'd need `ask_user` tool, et al)
     match args.command:
         case "audit":
-            report = asyncio.run(audit_max_integration(args.repo, ctx))
+            try:
+                report = asyncio.run(audit_max_integration(args.repo, ctx))
+            except UnsupportedProjectError as exc:
+                logging.error(f"Cannot audit: {exc}")
+                return 2
             print(report.model_dump_json(indent=2))
             return 0
         case "eval":
