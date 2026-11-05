@@ -20,6 +20,9 @@ from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
 
 
+#
+# TODO: GitHub connector that can be triggered via webapp to audit or install new adapters.
+#
 def main(argv: Sequence[str] | None = None) -> int:
     # Load .env file
     load_dotenv(find_dotenv(usecwd=True))
