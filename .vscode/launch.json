@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "fixture",
+      "type": "pickString",
+      "description": "Repository to audit",
+      "options": [
+        "tests/fixtures/ios_max_clean",
+        "tests/fixtures/ios_max_sdk_outdated",
+        "tests/fixtures/ios_max_mediation_provider_missing",
+        "tests/fixtures/ios_max_sdk_key_missing",
+        "tests/fixtures/ios_max_init_not_at_launch",
+        "tests/fixtures/ios_max_skadnetwork_missing",
+        "tests/fixtures/ios_max_no_ad_format",
+        "tests/fixtures/ios_max_ad_load_missing",
+        "tests/fixtures/ios_max_ad_delegate_missing",
+        "tests/fixtures/ios_max_ad_reload_missing",
+        "tests/fixtures/ios_max_network_missing",
+        "tests/fixtures/ios_max_cmp_missing"
+      ],
+      "default": "tests/fixtures/ios_max_clean"
+    }
+  ],
+  "configurations": [
+    {
+      "name": "adtech audit",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "adtech_agents.cli",
+      "args": [
+        "audit",
+        "--repo",
+        "${input:fixture}"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "adtech eval",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "adtech_agents.cli",
+      "args": [
+        "eval"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
