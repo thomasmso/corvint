@@ -4,8 +4,8 @@ from adtech_agents.schemas import Evidence, Finding
 from adtech_agents.workflows.audit_max_integration_workflow import validate_findings
 from tests.conftest import FIXTURES
 
-ROOT = FIXTURES / "ios_cocoapods_max"
-APP_DELEGATE = "PuzzleQuest/AppDelegate.swift"
+ROOT = FIXTURES / "ios_max_clean"
+AD_MANAGER = "PuzzleQuest/Ads/AdManager.swift"
 
 
 def _finding(title: str, *citations: tuple[str, int | None]) -> Finding:
@@ -26,18 +26,16 @@ def _finding(title: str, *citations: tuple[str, int | None]) -> Finding:
 
 def test_real_citations_are_kept() -> None:
     kept, rejected = validate_findings(
-        [_finding("real", (APP_DELEGATE, 14), ("Podfile", None))], ROOT
+        [_finding("real", (AD_MANAGER, 24), ("Podfile", None))], ROOT
     )
     assert [(f.title, f.verification_status) for f in kept] == [("real", "evidence_verified")]
     assert rejected == []
 
 
 def test_partly_bad_citations_need_manual_review() -> None:
-    kept, _ = validate_findings(
-        [_finding("partial", (APP_DELEGATE, 14), (APP_DELEGATE, 9999))], ROOT
-    )
+    kept, _ = validate_findings([_finding("partial", (AD_MANAGER, 24), (AD_MANAGER, 9999))], ROOT)
     assert kept[0].verification_status == "requires_manual_review"
-    assert [e.line_start for e in kept[0].evidence] == [14]
+    assert [e.line_start for e in kept[0].evidence] == [24]
 
 
 def test_findings_without_real_citations_are_rejected() -> None:

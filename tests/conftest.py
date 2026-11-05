@@ -7,6 +7,7 @@ import pytest
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 SUITE = Path(__file__).resolve().parent / "evals" / "cases.jsonl"
+REFERENCE_DATA = Path(__file__).resolve().parent / "evals" / "reference_data.json"
 
 MakeRepo = Callable[[dict[str, str]], Path]
 

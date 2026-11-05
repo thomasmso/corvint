@@ -6,13 +6,13 @@ from adtech_agents.tools.code_search import MAX_LINE_CHARS, read_file_lines, sea
 from adtech_agents.tools.common import ToolError
 from tests.conftest import FIXTURES, MakeRepo
 
-ROOT = FIXTURES / "ios_cocoapods_max"
-APP_DELEGATE = "PuzzleQuest/AppDelegate.swift"
+ROOT = FIXTURES / "ios_max_clean"
+AD_MANAGER = "PuzzleQuest/Ads/AdManager.swift"
 
 
 def test_search_finds_init_with_glob() -> None:
     result = search_code("ALSdk.shared().initialize", "*.swift", False, ROOT)
-    assert [(hit.path, hit.line) for hit in result.hits] == [(APP_DELEGATE, 14)]
+    assert [(hit.path, hit.line) for hit in result.hits] == [(AD_MANAGER, 24)]
     assert not result.truncated
 
 
@@ -37,9 +37,9 @@ def test_search_skips_pods_build_and_hidden(make_repo: MakeRepo) -> None:
 
 
 def test_read_file_lines_numbers_and_caps() -> None:
-    excerpt = read_file_lines(APP_DELEGATE, 13, 15, ROOT)
-    assert excerpt.lines[1].startswith("14: ") and "initialize" in excerpt.lines[1]
-    whole = read_file_lines(APP_DELEGATE, 1, 10_000, ROOT)
+    excerpt = read_file_lines(AD_MANAGER, 23, 25, ROOT)
+    assert excerpt.lines[1].startswith("24: ") and "initialize" in excerpt.lines[1]
+    whole = read_file_lines(AD_MANAGER, 1, 10_000, ROOT)
     assert len(whole.lines) == whole.total_lines
 
 
