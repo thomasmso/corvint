@@ -16,6 +16,7 @@ from dotenv import find_dotenv, load_dotenv
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.evals import render_scores, run_suite
+from adtech_agents.reference_data import ReferenceDataError
 from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
 
@@ -55,9 +56,9 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
         case "audit":
             try:
                 report = asyncio.run(audit_max_integration(args.repo, ctx))
-            except UnsupportedProjectError as exc:
+            except (UnsupportedProjectError, ReferenceDataError) as exc:
                 logging.error(f"Cannot audit: {exc}")
-                return 2
+                return 1
             print(report.model_dump_json(indent=2))
             return 0
         case "eval":

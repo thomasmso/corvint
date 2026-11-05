@@ -10,6 +10,7 @@ from agents import RunConfig, Runner
 
 from adtech_agents.agents.ios_max_audit_agent import build_ios_max_audit_agent
 from adtech_agents.context import Context
+from adtech_agents.reference_data import ReferenceData, fetch_reference_data
 from adtech_agents.schemas import AgentOutput, AuditReport, Evidence, Finding, RejectedFinding
 from adtech_agents.step_logger import StepLogger
 from adtech_agents.tools.code_search import read_repo_lines
@@ -21,17 +22,20 @@ from adtech_agents.tools.inspect_app_project import inspect_app_project
 TASK = "Audit the AppLovin MAX integration of this repository."
 
 
-async def audit_max_integration(repo_path: Path, ctx: Context) -> AuditReport:
+async def audit_max_integration(
+    repo_path: Path, ctx: Context, reference_data: ReferenceData | None = None
+) -> AuditReport:
     """
     Audit the AppLovin MAX integration of a repository.
     """
     root = repo_path.resolve()
+    reference_data = reference_data or fetch_reference_data(ctx.config)
     result = await Runner.run(
         build_ios_max_audit_agent(),
         TASK,
         context=AuditContext(
             repo_root=root,
-            repository_info=inspect_app_project(root, ctx.config),
+            repository_info=inspect_app_project(root, ctx.config, reference_data),
         ),
         max_turns=ctx.config.MAX_TURNS,
         hooks=StepLogger(),

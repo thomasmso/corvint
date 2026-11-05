@@ -13,6 +13,7 @@ from pathlib import Path
 from pydantic import BaseModel
 
 from adtech_agents.context import Context
+from adtech_agents.reference_data import load_reference_data
 from adtech_agents.rules import RuleId
 from adtech_agents.schemas import Finding
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
@@ -51,10 +52,11 @@ async def run_suite(ctx: Context) -> list[CaseScore]:
     Run each case; a failed run is recorded as an error so the rest of the suite still runs.
     """
     suite = ctx.config.EVAL_SUITE
+    reference_data = load_reference_data(ctx.config.EVAL_REFERENCE_DATA)
     scores = []
     for case in load_cases(suite):
         try:
-            report = await audit_max_integration(suite.parent / case.fixture, ctx)
+            report = await audit_max_integration(suite.parent / case.fixture, ctx, reference_data)
         except Exception as exc:
             scores.append(
                 CaseScore(

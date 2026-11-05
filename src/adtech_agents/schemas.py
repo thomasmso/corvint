@@ -21,6 +21,25 @@ class Dependency(BaseModel):
     """
     source_file: str
     line: int | None
+    allows_latest_version: bool | None = None
+    """
+    Whether the constraint lets CocoaPods install `RepositoryInfo.latest_sdk_version`. Only
+    checked for `AppLovinSDK`; `None` when not checked or the constraint cannot be parsed.
+    """
+
+
+class InfoPlist(BaseModel):
+    path: str
+    sdk_key_present: bool
+    """
+    Non-empty `AppLovinSdkKey`.
+    """
+    tracking_usage_description_present: bool
+    """
+    Non-empty `NSUserTrackingUsageDescription`.
+    """
+    skadnetwork_id_count: int
+    missing_applovin_skadnetwork_ids: list[str]
 
 
 class RepositoryInfo(BaseModel):
@@ -31,6 +50,11 @@ class RepositoryInfo(BaseModel):
     `Podfile` paths.
     """
     dependencies: list[Dependency]
+    info_plists: list[InfoPlist]
+    latest_sdk_version: str
+    """
+    Newest published `AppLovinSDK` (reference data fetched by our code, not from the repo).
+    """
 
 
 # Finding and Evidence double as the agent's structured output, so every field is required
