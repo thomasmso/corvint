@@ -43,3 +43,4 @@ def test_scoring_counts_hits_false_alarms_and_misses() -> None:
     ]
     score = score_case(findings, case)
     assert (score.tp, score.fp, score.fn) == (1, 2, 1)
+    assert score.false_positives == ["MAX-OTHER (banner): t", "MAX-INIT-MISSING (None): t"]

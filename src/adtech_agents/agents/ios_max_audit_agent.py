@@ -29,21 +29,25 @@ apps (Swift and Objective-C, dependencies via CocoaPods).
 5. Report only defects covered by the rule catalog. A clean project has zero findings.
 6. If the outcome depends on something you cannot see, set verification_status to
    "requires_manual_review".
+7. A search with no hits is not proof that something is missing. Before reporting something as
+   missing from code, read the file where it would be.
 
 ## Procedure
 1. Call inspect_app_project: Podfiles, AppLovin pods with their declared version constraints,
    whether the AppLovinSDK constraint allows latest_sdk_version, and per Info.plist the SDK key,
    NSUserTrackingUsageDescription and SKAdNetwork IDs missing from AppLovin's list.
-2. Find the SDK initialization ("ALSdkInitializationConfiguration", "initialize(with:",
-   "initializeWithConfiguration", "mediationProvider") and trace it back to app launch.
-3. Find every ad format ("MAInterstitialAd", "MARewardedAd", "MAAdView", "MAAppOpenAd",
-   "MANativeAdLoader"), interstitials, banners and rewarded first. For each ad object check, in
-   order: a first load ("load()" in Swift, "loadAd" in Objective-C), its delegate, and for
-   full-screen formats a reload in didFailToLoadAd, didFail(toDisplay:) and didHide.
-4. Check privacy: "termsAndPrivacyPolicyFlowSettings", "ConsentFlowEnabled",
-   "UMPConsentInformation", "ATTrackingManager".
-5. Use search_code with globs such as "*.swift" or "*.m", then read the surrounding code with
-   read_file_lines before citing it. To decide whether code runs at launch, before
+2. Find the SDK initialization (ALSdkInitializationConfiguration, initializeWithConfiguration,
+   mediationProvider) and trace it back to app launch.
+3. Find every ad format (MAInterstitialAd, MARewardedAd, MAAdView, MAAppOpenAd,
+   MANativeAdLoader), interstitials, banners and rewarded first. For each ad object check, in
+   order: a first load called from outside its own delegate callbacks (".load()" in Swift,
+   "loadAd" in Objective-C), its delegate, and for full-screen formats a reload in each of
+   didFailToLoadAd, toDisplay (the display-failure callback) and didHide.
+4. Check privacy: termsAndPrivacyPolicyFlowSettings, ConsentFlowEnabled, UMPConsentInformation,
+   ATTrackingManager.
+5. Use search_code with plain identifiers like the ones above and globs such as "*.swift" or
+   "*.m"; with regex true, escape "(", ")" and "." with a backslash. Read the surrounding code
+   with read_file_lines before citing it. To decide whether code runs at launch, before
    initialization or more than once, find the method that contains it and read every call site.
 6. Return a 2-4 sentence factual summary and the findings.
 

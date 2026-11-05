@@ -45,6 +45,10 @@ class CaseScore(BaseModel):
     fp: int
     fn: int
     error: str | None = None
+    false_positives: list[str] = []
+    """
+    `"<rule_id> (<subject>): <title>"` of each false alarm.
+    """
 
 
 async def run_suite(ctx: Context) -> list[CaseScore]:
@@ -81,19 +85,27 @@ def score_case(findings: list[Finding], case: EvalCase) -> CaseScore:
         if hit:
             unmatched.remove(hit)
             tp += 1
-    fp = sum(
-        not any(_matches(f, acceptable) for acceptable in case.acceptable_findings)
+    false_positives = [
+        f"{f.rule_id} ({f.subject}): {f.title}"
         for f in unmatched
+        if not any(_matches(f, acceptable) for acceptable in case.acceptable_findings)
+    ]
+    return CaseScore(
+        case_id=case.case_id,
+        tp=tp,
+        fp=len(false_positives),
+        fn=len(case.expected_findings) - tp,
+        false_positives=false_positives,
     )
-    return CaseScore(case_id=case.case_id, tp=tp, fp=fp, fn=len(case.expected_findings) - tp)
 
 
 def render_scores(scores: list[CaseScore]) -> str:
     rows = [f"{'case':36} {'tp':>3} {'fp':>3} {'fn':>3}"]
-    rows += [
-        f"{s.case_id:36} {s.tp:>3} {s.fp:>3} {s.fn:>3}" + (f"  ERROR: {s.error}" if s.error else "")
-        for s in scores
-    ]
+    for s in scores:
+        error = f"  ERROR: {s.error}" if s.error else ""
+        rows.append(f"{s.case_id:36} {s.tp:>3} {s.fp:>3} {s.fn:>3}{error}")
+        for false_positive in s.false_positives:
+            rows.append(f"    false positive: {false_positive}")
     tp, fp, fn = (sum(getattr(s, field) for s in scores) for field in ("tp", "fp", "fn"))
     precision = f"{tp / (tp + fp):.2f}" if tp + fp else "n/a"
     recall = f"{tp / (tp + fn):.2f}" if tp + fn else "n/a"

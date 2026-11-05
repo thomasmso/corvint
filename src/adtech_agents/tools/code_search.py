@@ -56,7 +56,8 @@ def search_code_tool(
     Args:
         query: Text to find, or a Python regular expression when regex is true.
         glob: File filter such as "*.swift" or "App/Ads/*", or null for all files.
-        regex: Treat query as a regular expression.
+        regex: Treat query as a regular expression. Required for alternatives such as
+            "MAInterstitialAd|MARewardedAd"; without it "|" is matched literally.
     """
     return search_code(query, glob, regex, ctx.context.repo_root).model_dump_json()
 
@@ -156,6 +157,11 @@ def search_code(query: str, glob: str | None, regex: bool, root: Path) -> Search
                     return SearchResult(hits=hits, truncated=True)
                 _check_line_length(line, rel, number)
                 hits.append(SearchHit(path=rel, line=number, text=line.strip()))
+    if not hits and not regex and "|" in query:
+        raise ToolError(
+            "no line contains this text literally; to match any of several terms separated by "
+            "'|', set regex to true (escape '(', ')' and '.' with a backslash)"
+        )
     return SearchResult(hits=hits, truncated=False)
 
 

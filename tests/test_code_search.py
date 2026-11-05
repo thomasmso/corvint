@@ -22,6 +22,12 @@ def test_search_regex_and_invalid_regex() -> None:
         search_code("(", None, True, ROOT)
 
 
+def test_literal_alternation_without_hits_says_to_use_regex() -> None:
+    with pytest.raises(ToolError, match="set regex to true"):
+        search_code("MAInterstitialAd|MARewardedAd", "*.swift", False, ROOT)
+    assert len(search_code("MAInterstitialAd|MARewardedAd", "*.swift", True, ROOT).hits) > 1
+
+
 def test_search_skips_pods_build_and_hidden(make_repo: MakeRepo) -> None:
     root = make_repo(
         {
