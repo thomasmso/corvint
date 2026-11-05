@@ -37,6 +37,7 @@ by `tests/generate_fixtures.py`.
 | `ad_reload_missing_on_display_fail` | yes | yes | Interstitial not reloaded when it fails to display |
 | `ad_reload_missing_on_load_fail` | yes | yes | Interstitial failed load is logged, never retried |
 | `network_missing` | yes | | No Unity Ads adapter |
+| `network_missing_admob` | yes | | No Google AdMob adapter and no `GADApplicationIdentifier` |
 | `cmp_missing` | yes | yes | No consent flow, no `NSUserTrackingUsageDescription` |
 
 Harder cases. `clean_*` are correct apps written in a less obvious way, `decoy_*` add code that

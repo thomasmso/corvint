@@ -14,7 +14,9 @@ from adtech_agents.tools.inspect_app_project import (
 from tests.conftest import FIXTURES, REFERENCE_DATA, MakeRepo
 
 SNAPSHOT = load_reference_data(REFERENCE_DATA)
-REFERENCE = ReferenceData(latest_sdk_version="13.7.0", skadnetwork_ids=["a.sk"])
+REFERENCE = ReferenceData(
+    latest_sdk_version="13.7.0", adapter_versions={}, skadnetwork_ids=["a.sk"]
+)
 INFO_PLIST = "PuzzleQuest/Info.plist"
 
 

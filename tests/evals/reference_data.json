@@ -1,5 +1,9 @@
 {
   "latest_sdk_version": "13.7.0",
+  "adapter_versions": {
+    "AppLovinMediationGoogleAdapter": "13.11.0.0",
+    "AppLovinMediationUnityAdsAdapter": "4.21.0.1"
+  },
   "skadnetwork_ids": [
     "22mmun2rn5.skadnetwork",
     "238da6jt44.skadnetwork",

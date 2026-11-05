@@ -19,6 +19,7 @@
         "tests/fixtures/ios_swift_max_ad_reload_missing_on_display_fail",
         "tests/fixtures/ios_swift_max_ad_reload_missing_on_load_fail",
         "tests/fixtures/ios_swift_max_network_missing",
+        "tests/fixtures/ios_swift_max_network_missing_admob",
         "tests/fixtures/ios_swift_max_cmp_missing",
         "tests/fixtures/ios_swift_max_clean_reload_helper",
         "tests/fixtures/ios_swift_max_clean_lazy_ad_setup",

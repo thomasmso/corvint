@@ -12,7 +12,8 @@ The agent (iOS MAX Audit Agent, OpenAI Agents SDK) has three tools:
 - `read_file_lines`: numbered lines from one file, inside the repository only.
 
 Before the run, our code (never the model) fetches the newest `AppLovinSDK` version from
-CocoaPods trunk and AppLovin's SKAdNetwork IDs; the audit fails if it cannot. Evals use the saved
+CocoaPods trunk, the newest Google and Unity Ads adapter versions from AppLovin's Integration
+Manager API, and AppLovin's SKAdNetwork IDs; the audit fails if it cannot. Evals use the saved
 `tests/evals/reference_data.json` instead, so scores do not move when AppLovin ships a release.
 
 After the run, every cited file and line range is checked against the repository. Findings that
@@ -49,7 +50,8 @@ src/adtech_agents/
   workflows/audit_max_integration_workflow.py  audit_max_integration: run, validate evidence
   tools/inspect_app_project.py Podfile and Info.plist parsing; rejects Unity and oversized projects
   tools/code_search.py       repo walking, path guard, search and line reads
-  reference_data.py          newest SDK version and AppLovin SKAdNetwork IDs (fixed URLs)
+  reference_data.py          newest SDK and adapter versions, AppLovin SKAdNetwork IDs (fixed URLs)
+  project_changes.py         Podfile pod lines and AdMob app ID placeholder: plan, diff, apply
   rules.py                   rule ids shared by the prompt and the evals
   schemas.py                 pydantic models
   evals.py                   fixture eval runner and scoring

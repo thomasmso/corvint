@@ -236,6 +236,11 @@ SWIFT_DEFECTS: dict[str, list[Change]] = {
     "network_missing": [
         Edit("Podfile", "  pod 'AppLovinMediationUnityAdsAdapter', '~> 4.20'\n"),
     ],
+    # AdMob never added: no adapter and no AdMob app ID, so installing it must add both.
+    "network_missing_admob": [
+        Edit("Podfile", "  pod 'AppLovinMediationGoogleAdapter', '~> 13.9'\n"),
+        DeletePlistKey("GADApplicationIdentifier"),
+    ],
     "cmp_missing": [
         Edit(
             SWIFT_AD_MANAGER,
