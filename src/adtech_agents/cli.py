@@ -24,6 +24,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     config = Config()
     logging.basicConfig(level=config.LOG_LEVEL, format=config.LOG_FORMAT)
+    if config.LOG_AGENT_DATA:
+        agents_debug.DONT_LOG_MODEL_DATA = False
+        agents_debug.DONT_LOG_TOOL_DATA = False
+        logging.getLogger("openai.agents").setLevel(logging.DEBUG)
+
+    logging.info(f"Starting {args.command}: args={vars(args)} config={config}")
 
     # TODO: Integrate OpenRouter
     if not config.OPENAI_API_KEY:

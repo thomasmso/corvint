@@ -35,3 +35,6 @@ class Config:
     # --- Logging ---
     LOG_LEVEL: int = logging.INFO
     LOG_FORMAT: str = "[adtech] %(asctime)s %(levelname)s %(message)s"
+    # Log every model request/response and tool call arguments/results (openai-agents DEBUG logs).
+    # Off by default: the data contains customer code.
+    LOG_AGENT_DATA: bool = False
