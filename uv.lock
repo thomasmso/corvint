@@ -16,6 +16,7 @@ dependencies = [
     { name = "openai" },
     { name = "openai-agents" },
     { name = "pydantic" },
+    { name = "pyjwt", extra = ["crypto"] },
     { name = "python-dotenv" },
     { name = "tqdm" },
 ]
@@ -34,6 +35,7 @@ requires-dist = [
     { name = "openai", specifier = ">=3.45.0" },
     { name = "openai-agents", specifier = ">=0.24.0" },
     { name = "pydantic", specifier = ">=2.14.2" },
+    { name = "pyjwt", extras = ["crypto"], specifier = ">=2.15.1" },
     { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]

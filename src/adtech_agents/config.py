@@ -42,6 +42,19 @@ class Config:
     # (the Google Mobile Ads SDK crashes at launch without one). The publisher must replace it.
     ADMOB_APP_ID_PLACEHOLDER: str = "ca-app-pub-3555987499888888~8291888888"
 
+    # --- Pull requests (GitHub App, see README) ---
+    GITHUB_APP_ID: str = field(default_factory=lambda: os.environ.get("GITHUB_APP_ID", ""))
+    # .pem downloaded from the app's settings page; keep it outside the repository.
+    GITHUB_APP_PRIVATE_KEY_PATH: str = field(
+        default_factory=lambda: os.environ.get("GITHUB_APP_PRIVATE_KEY_PATH", "")
+    )
+    GITHUB_API_URL: str = "https://api.github.com"
+    # Base URL for clone, fetch and push (tests point it at local bare repositories).
+    GITHUB_GIT_URL: str = "https://github.com"
+    # Branch pushed for each pull request: prefix + UTC timestamp.
+    PULL_REQUEST_BRANCH_PREFIX: str = "corvint/install-pods-"
+    GIT_TIMEOUT_SECONDS: float = 300.0
+
     # --- Evals ---
     # Relative to the working directory: run `adtech eval` from the repository root.
     EVAL_SUITE: Path = Path("tests/evals/cases.jsonl")

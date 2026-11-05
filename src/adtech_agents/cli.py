@@ -1,5 +1,6 @@
 """
-`adtech` command line: `audit` one repository or `eval` the fixture suite.
+`adtech` command line: `audit` one repository, `eval` the fixture suite, or `install` pods through
+a pull request.
 """
 
 from __future__ import annotations
@@ -16,14 +17,15 @@ from dotenv import find_dotenv, load_dotenv
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.evals import render_scores, run_suite, save_results
-from adtech_agents.reference_data import ReferenceDataError
-from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
+from adtech_agents.github_app import GitHubError
+from adtech_agents.project_changes import ChangeError
+from adtech_agents.reference_data import ADAPTER_PODS, ReferenceDataError
+from adtech_agents.tools.inspect_app_project import SDK_POD, UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
+from adtech_agents.workflows.install_pods_workflow import install_pods
+from adtech_agents.workspace import WorkspaceError
 
 
-#
-# TODO: GitHub connector that can be triggered via webapp to audit or install new adapters.
-#
 def main(argv: Sequence[str] | None = None) -> int:
     # Load .env file
     load_dotenv(find_dotenv(usecwd=True))
@@ -39,7 +41,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     logging.info(f"Starting {args.command}: args={vars(args)} config={config}")
 
     # TODO: Integrate OpenRouter
-    if not config.OPENAI_API_KEY:
+    if args.command in ("audit", "eval") and not config.OPENAI_API_KEY:
         logging.error("OPENAI_API_KEY is not set. Copy .env.example to .env and add your key.")
         return 2
 
@@ -67,6 +69,19 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
             path = save_results(scores, ctx.config.EVAL_RESULTS_DIR)
             logging.info(f"Saved eval results to {path}")
             return 1 if any(score.error for score in scores) else 0
+        # If want to test manually install pods (debugging shortcut essentially)
+        case "install":
+            try:
+                result = install_pods(args.repo, args.pod, ctx)
+            except (ReferenceDataError, GitHubError, WorkspaceError, ChangeError) as exc:
+                logging.error(f"Cannot install: {exc}")
+                return 1
+            if result.pull_request_url is None:
+                print("Nothing to change: every pod already allows its newest version.")
+            else:
+                print(result.diff)
+                print(f"Opened {result.pull_request_url}")
+            return 0
         case _:
             logging.error(f"Unknown command: {args.command}")
             return 2
@@ -80,6 +95,14 @@ def build_parser() -> argparse.ArgumentParser:
     audit.add_argument("--repo", type=Path, required=True)
 
     subparser.add_parser("eval", help="Run every fixture eval case (calls the model).")
+
+    install = subparser.add_parser(
+        "install", help="Install or update pods and open a pull request (GitHub App, see README)."
+    )
+    install.add_argument("--repo", required=True, help="Local git repository or GitHub URL.")
+    install.add_argument(
+        "--pod", action="append", required=True, choices=[SDK_POD, *ADAPTER_PODS.values()]
+    )
 
     return parser
 

@@ -1,7 +1,8 @@
 # adtech-agents (v0)
 
-A read-only agent that audits AppLovin MAX SDK integrations in iOS apps. It never modifies the
-repository, runs builds or changes mediation settings.
+An agent that audits AppLovin MAX SDK integrations in iOS apps, read-only. Separately, `adtech
+install` installs or updates the AppLovinSDK and the Google/Unity Ads adapter pods through a GitHub
+pull request; it never edits the publisher's checkout, builds, merges or changes mediation settings.
 
 The agent (iOS MAX Audit Agent, OpenAI Agents SDK) has three tools:
 
@@ -32,7 +33,31 @@ cp .env.example .env    # then set OPENAI_API_KEY
 uv run adtech audit --repo tests/fixtures/ios_swift_max_clean   # prints the report as JSON
 uv run adtech eval                     # every case in tests/evals/cases.jsonl; calls the model per case
                                        # results (pass/fail, misses, reports): eval-results/<time>.json
+uv run adtech install --repo <local repo or GitHub URL> --pod AppLovinMediationUnityAdsAdapter
+                                       # opens a pull request (needs the GitHub App below)
 ```
+
+## Pull requests (GitHub App)
+
+`adtech install` works in a temporary copy: a git worktree of a local repository (whose `origin`
+must be on GitHub), or a clone of a GitHub URL, on a new `corvint/install-pods-<time>` branch off
+the default branch. It edits the `Podfile` (and, for the AdMob adapter, adds a placeholder
+`GADApplicationIdentifier` to the app's `Info.plist` if it has none), commits as the app, pushes
+the branch and opens a pull request marked "not built or tested". The copy is then deleted.
+
+One-time setup:
+
+1. Create the app at <https://github.com/settings/apps/new>: any name and homepage URL; under
+   Webhook, untick Active; Repository permissions: Contents **Read and write**, Pull requests
+   **Read and write** (Metadata read-only is added automatically); "Only on this account".
+2. On the app's page, note the App ID and generate a private key. Keep the `.pem` outside the
+   repository, e.g. `~/.config/corvint/github-app.pem`.
+3. Install the app (Install App, left menu) on the repositories it may open pull requests in.
+4. In `.env`: `GITHUB_APP_ID=<App ID>` and `GITHUB_APP_PRIVATE_KEY_PATH=<path to the .pem>`.
+
+The private key and tokens never reach the model. Each run asks GitHub for a one-hour token limited
+to the one repository; git receives it through environment variables, not the command line or
+`.git/config`.
 
 To step through in Cursor/VS Code, use the configurations in `.vscode/launch.json` (F5).
 
@@ -52,13 +77,17 @@ src/adtech_agents/
   tools/code_search.py       repo walking, path guard, search and line reads
   reference_data.py          newest SDK and adapter versions, AppLovin SKAdNetwork IDs (fixed URLs)
   project_changes.py         Podfile pod lines and AdMob app ID placeholder: plan, diff, apply
+  workflows/install_pods_workflow.py  install_pods: workspace, changes, pull request (all interfaces)
+  workspace.py               temporary worktree or clone, commit, push, open the pull request
+  github_app.py              GitHub App: installation tokens, default branch, pull requests
   rules.py                   rule ids shared by the prompt and the evals
   schemas.py                 pydantic models
   evals.py                   fixture eval runner and scoring
   config.py                  `Config`: settings (API key from the environment, turns, eval suite)
   context.py                 `Context`: config + task manager, created by the CLI and passed down
-  cli.py                     `adtech audit` / `adtech eval`
+  cli.py                     `adtech audit` / `adtech eval` / `adtech install`
 tests/                       unit tests, fixtures/ (generated Xcode projects), evals/
+                             (cases.jsonl, ablation.md: eval history per change)
 ```
 
 ## Not in v0
@@ -66,5 +95,4 @@ tests/                       unit tests, fixtures/ (generated Xcode projects), e
 Unity and Android, adapter versions and SKAdNetwork IDs of networks other than AppLovin, choosing
 the model, Swift Package Manager installs, documentation lookup, adapter/SDK compatibility checks,
 runtime checks (builds, devices), any HTTP API, CI pipelines,
-multi-agent orchestration. Agent quality has not been measured
-yet: no live eval has been run.
+multi-agent orchestration. Eval results so far: `tests/evals/ablation.md`.
