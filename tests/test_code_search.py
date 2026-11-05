@@ -6,7 +6,7 @@ from adtech_agents.tools.code_search import MAX_LINE_CHARS, read_file_lines, sea
 from adtech_agents.tools.common import ToolError
 from tests.conftest import FIXTURES, MakeRepo
 
-ROOT = FIXTURES / "ios_max_clean"
+ROOT = FIXTURES / "ios_swift_max_clean"
 AD_MANAGER = "PuzzleQuest/Ads/AdManager.swift"
 
 

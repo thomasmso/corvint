@@ -4,7 +4,7 @@ from adtech_agents.schemas import Evidence, Finding
 from adtech_agents.workflows.audit_max_integration_workflow import validate_findings
 from tests.conftest import FIXTURES
 
-ROOT = FIXTURES / "ios_max_clean"
+ROOT = FIXTURES / "ios_swift_max_clean"
 AD_MANAGER = "PuzzleQuest/Ads/AdManager.swift"
 
 

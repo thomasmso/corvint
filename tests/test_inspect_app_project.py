@@ -4,6 +4,7 @@ import pytest
 
 from adtech_agents.config import Config
 from adtech_agents.reference_data import ReferenceData, load_reference_data
+from adtech_agents.schemas import RepositoryInfo
 from adtech_agents.tools.code_search import MAX_LINE_CHARS, iter_files, read_text
 from adtech_agents.tools.inspect_app_project import (
     UnsupportedProjectError,
@@ -18,7 +19,7 @@ INFO_PLIST = "PuzzleQuest/Info.plist"
 
 
 def test_clean_fixture() -> None:
-    info = inspect_app_project(FIXTURES / "ios_max_clean", Config(), SNAPSHOT)
+    info = inspect_app_project(FIXTURES / "ios_swift_max_clean", Config(), SNAPSHOT)
     assert info.platform == "ios"
     assert info.dependency_files == ["Podfile"]
     assert {d.name: (d.version, d.allows_latest_version) for d in info.dependencies} == {
@@ -35,18 +36,21 @@ def test_clean_fixture() -> None:
 
 
 def test_defect_fixtures() -> None:
-    outdated = inspect_app_project(FIXTURES / "ios_max_sdk_outdated", Config(), SNAPSHOT)
+    def inspect(fixture: str) -> RepositoryInfo:
+        return inspect_app_project(FIXTURES / fixture, Config(), SNAPSHOT)
+
+    outdated = inspect("ios_swift_max_sdk_outdated")
     assert [d.allows_latest_version for d in outdated.dependencies if d.name == "AppLovinSDK"] == [
         False
     ]
-    no_skan = inspect_app_project(FIXTURES / "ios_max_skadnetwork_missing", Config(), SNAPSHOT)
+    no_skan = inspect("ios_swift_max_skadnetwork_missing")
     assert no_skan.info_plists[0].skadnetwork_id_count == 0
     assert no_skan.info_plists[0].missing_applovin_skadnetwork_ids == SNAPSHOT.skadnetwork_ids
-    no_att = inspect_app_project(FIXTURES / "ios_max_cmp_missing", Config(), SNAPSHOT)
+    no_att = inspect("ios_swift_max_cmp_missing")
     assert not no_att.info_plists[0].tracking_usage_description_present
 
 
-@pytest.mark.parametrize("fixture", sorted(p.name for p in FIXTURES.glob("ios_max_*")))
+@pytest.mark.parametrize("fixture", sorted(p.name for p in FIXTURES.glob("ios_*_max_*")))
 def test_every_fixture_is_an_inspectable_xcode_project(fixture: str) -> None:
     root = FIXTURES / fixture
     assert (root / "PuzzleQuest.xcodeproj" / "project.pbxproj").is_file()

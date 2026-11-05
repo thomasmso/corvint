@@ -116,10 +116,9 @@ RULES: tuple[Rule, ...] = (
     Rule(
         "MAX-AD-LOAD-MISSING",
         "high",
-        "An ad object is created but nothing outside its own delegate callbacks ever calls its "
-        "first load (load() in Swift, loadAd in Objective-C). Retries in didFailToLoadAd and "
-        "reloads in didHide or didFail(toDisplay:) only run after a load, so they do not count.",
-        "A first load is called from app code, e.g. from the initialization callback.",
+        "An ad object is created but its first load (load() in Swift, loadAd in "
+        "Objective-C) is never called, or only from callbacks that cannot fire before a load.",
+        "A first load is reachable, e.g. from the initialization callback.",
         "ad format: 'interstitial', 'rewarded', 'banner', 'mrec', 'app open' or 'native'",
     ),
     Rule(
@@ -143,9 +142,7 @@ RULES: tuple[Rule, ...] = (
         "MAX-LOAD-BEFORE-INIT",
         "medium",
         "An ad load or show call is reachable before the SDK initialization callback fires.",
-        "Loads happen only from the initialization callback or code that runs after it, or the "
-        "call goes through an ad object that only exists after initialization (e.g. created in "
-        "the callback and reached through an optional, so the call does nothing before).",
+        "Loads happen only from the initialization callback or code that runs after it.",
         "ad format or method name",
     ),
     # --- Networks ---

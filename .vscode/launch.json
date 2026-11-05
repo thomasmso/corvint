@@ -6,20 +6,29 @@
       "type": "pickString",
       "description": "Repository to audit",
       "options": [
-        "tests/fixtures/ios_max_clean",
-        "tests/fixtures/ios_max_sdk_outdated",
-        "tests/fixtures/ios_max_mediation_provider_missing",
-        "tests/fixtures/ios_max_sdk_key_missing",
-        "tests/fixtures/ios_max_init_not_at_launch",
-        "tests/fixtures/ios_max_skadnetwork_missing",
-        "tests/fixtures/ios_max_no_ad_format",
-        "tests/fixtures/ios_max_ad_load_missing",
-        "tests/fixtures/ios_max_ad_delegate_missing",
-        "tests/fixtures/ios_max_ad_reload_missing",
-        "tests/fixtures/ios_max_network_missing",
-        "tests/fixtures/ios_max_cmp_missing"
+        "tests/fixtures/ios_swift_max_clean",
+        "tests/fixtures/ios_swift_max_sdk_outdated",
+        "tests/fixtures/ios_swift_max_mediation_provider_missing",
+        "tests/fixtures/ios_swift_max_sdk_key_missing",
+        "tests/fixtures/ios_swift_max_init_not_at_launch",
+        "tests/fixtures/ios_swift_max_skadnetwork_missing",
+        "tests/fixtures/ios_swift_max_no_ad_format",
+        "tests/fixtures/ios_swift_max_ad_load_missing",
+        "tests/fixtures/ios_swift_max_ad_delegate_missing",
+        "tests/fixtures/ios_swift_max_ad_reload_missing",
+        "tests/fixtures/ios_swift_max_network_missing",
+        "tests/fixtures/ios_swift_max_cmp_missing",
+        "tests/fixtures/ios_objc_max_clean",
+        "tests/fixtures/ios_objc_max_mediation_provider_missing",
+        "tests/fixtures/ios_objc_max_sdk_key_missing",
+        "tests/fixtures/ios_objc_max_init_not_at_launch",
+        "tests/fixtures/ios_objc_max_no_ad_format",
+        "tests/fixtures/ios_objc_max_ad_load_missing",
+        "tests/fixtures/ios_objc_max_ad_delegate_missing",
+        "tests/fixtures/ios_objc_max_ad_reload_missing",
+        "tests/fixtures/ios_objc_max_cmp_missing"
       ],
-      "default": "tests/fixtures/ios_max_clean"
+      "default": "tests/fixtures/ios_swift_max_clean"
     }
   ],
   "configurations": [

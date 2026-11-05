@@ -5,9 +5,12 @@ by unit tests and the evaluation suite. Each directory is scanned as if it were 
 repository, so **expected outcomes live in `tests/evals/cases.jsonl`, never inside a fixture**
 (that would leak answers to the agent).
 
-`ios_max_clean` is hand-written. Every other fixture is a copy of it with one defect, produced by
-`uv run python -m tests.generate_fixtures` (needs `brew install xcodegen`). Edit the clean app or
-the defect list in `tests/generate_fixtures.py` and regenerate; never edit a defect fixture by hand.
+`ios_swift_max_clean` (Swift) and `ios_objc_max_clean` (Objective-C) are hand-written, with the
+same integration. Every other fixture is a copy of one of them with one defect, produced by
+`uv run python -m tests.generate_fixtures` (needs `brew install xcodegen`). Edit a clean app or
+the defect lists in `tests/generate_fixtures.py` and regenerate; never edit a defect fixture by
+hand. Objective-C only has the defects that live in code; `Podfile` and `Info.plist` defects are
+covered by the Swift set.
 
 Pod names, APIs and versions are real (CocoaPods trunk and AppLovin's iOS integration docs), and
 every fixture built for the iOS Simulator after `pod install` with AppLovinSDK 13.7.0. Versions
@@ -19,17 +22,17 @@ committed.
 AppLovinSDK 13.7.0 and AppLovin's 152 SKAdNetwork IDs) taken on 2026-11-05, used by the evals and
 by `tests/generate_fixtures.py`.
 
-| Fixture | Defect |
-| --- | --- |
-| `ios_max_clean` | None: init at launch with SDK key and mediation provider, AppLovin consent flow, AppLovin's full SKAdNetwork list, Google and Unity Ads adapters, interstitial, rewarded and banner |
-| `ios_max_sdk_outdated` | `AppLovinSDK` pinned to `13.6.4` |
-| `ios_max_mediation_provider_missing` | Init builder does not set `mediationProvider` |
-| `ios_max_sdk_key_missing` | Empty SDK key, none in `Info.plist` |
-| `ios_max_init_not_at_launch` | SDK initialized when Play is tapped |
-| `ios_max_skadnetwork_missing` | No `SKAdNetworkItems` |
-| `ios_max_no_ad_format` | No ad format integrated |
-| `ios_max_ad_load_missing` | Interstitial never loaded initially |
-| `ios_max_ad_delegate_missing` | Rewarded ad delegate never set |
-| `ios_max_ad_reload_missing` | Interstitial not reloaded in `didHide` |
-| `ios_max_network_missing` | No Unity Ads adapter |
-| `ios_max_cmp_missing` | No consent flow, no `NSUserTrackingUsageDescription` |
+| Defect (fixture suffix) | Swift | Objective-C | Change from the clean app |
+| --- | --- | --- | --- |
+| `clean` | yes | yes | None: init at launch with SDK key and mediation provider, AppLovin consent flow, AppLovin's full SKAdNetwork list, Google and Unity Ads adapters, interstitial, rewarded and banner |
+| `sdk_outdated` | yes | | `AppLovinSDK` pinned to `13.6.4` |
+| `mediation_provider_missing` | yes | yes | Init builder does not set `mediationProvider` |
+| `sdk_key_missing` | yes | yes | Empty SDK key, none in `Info.plist` |
+| `init_not_at_launch` | yes | yes | SDK initialized when Play is tapped |
+| `skadnetwork_missing` | yes | | No `SKAdNetworkItems` |
+| `no_ad_format` | yes | yes | No ad format integrated |
+| `ad_load_missing` | yes | yes | Interstitial never loaded initially |
+| `ad_delegate_missing` | yes | yes | Rewarded ad delegate never set |
+| `ad_reload_missing` | yes | yes | Interstitial not reloaded in `didHide` |
+| `network_missing` | yes | | No Unity Ads adapter |
+| `cmp_missing` | yes | yes | No consent flow, no `NSUserTrackingUsageDescription` |
