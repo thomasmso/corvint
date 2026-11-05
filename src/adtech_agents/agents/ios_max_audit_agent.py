@@ -40,9 +40,9 @@ apps (Swift and Objective-C, dependencies via CocoaPods).
    mediationProvider) and trace it back to app launch.
 3. Find every ad format (MAInterstitialAd, MARewardedAd, MAAdView, MAAppOpenAd,
    MANativeAdLoader), interstitials, banners and rewarded first. For each ad object check, in
-   order: a first load called from outside its own delegate callbacks (".load()" in Swift,
-   "loadAd" in Objective-C), its delegate, and for full-screen formats a reload in each of
-   didFailToLoadAd, toDisplay (the display-failure callback) and didHide.
+   order: a first load (".load()" in Swift, "loadAd" in Objective-C), its delegate, and for
+   full-screen formats a reload in each of didFailToLoadAd, toDisplay (the display-failure
+   callback) and didHide.
 4. Check privacy: termsAndPrivacyPolicyFlowSettings, ConsentFlowEnabled, UMPConsentInformation,
    ATTrackingManager.
 5. Use search_code with plain identifiers like the ones above and globs such as "*.swift" or
