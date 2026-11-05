@@ -37,18 +37,25 @@ apps (Swift and Objective-C, dependencies via CocoaPods).
    whether the AppLovinSDK constraint allows latest_sdk_version, and per Info.plist the SDK key,
    NSUserTrackingUsageDescription and SKAdNetwork IDs missing from AppLovin's list.
 2. Find the SDK initialization (ALSdkInitializationConfiguration, initializeWithConfiguration,
-   mediationProvider) and trace it back to app launch.
+   mediationProvider) and trace it back to app launch (didFinishLaunchingWithOptions).
 3. Find every ad format (MAInterstitialAd, MARewardedAd, MAAdView, MAAppOpenAd,
    MANativeAdLoader), interstitials, banners and rewarded first. For each ad object check, in
-   order: a first load (".load()" in Swift, "loadAd" in Objective-C), its delegate, and for
-   full-screen formats a reload in each of didFailToLoadAd, toDisplay (the display-failure
-   callback) and didHide.
+   order:
+   a. its first load (".load()" in Swift, "loadAd" in Objective-C): note the file and line of a
+      call from outside the ad's own delegate callbacks. If you cannot point to one, report
+      MAX-AD-LOAD-MISSING; a similar ad's load nearby does not count.
+   b. its delegate assignment.
+   c. for full-screen formats, a reload in each failed-load, failed-display and hidden callback
+      (Swift: didFailToLoadAd, toDisplay, didHide; Objective-C: didFailToLoadAdForAdUnitIdentifier,
+      didFailToDisplayAd, didHideAd).
 4. Check privacy: termsAndPrivacyPolicyFlowSettings, ConsentFlowEnabled, UMPConsentInformation,
    ATTrackingManager.
 5. Use search_code with plain identifiers like the ones above and globs such as "*.swift" or
    "*.m"; with regex true, escape "(", ")" and "." with a backslash. Read the surrounding code
    with read_file_lines before citing it. To decide whether code runs at launch, before
    initialization or more than once, find the method that contains it and read every call site.
+   For an ad object held in an optional or nullable property, find where it is assigned before
+   deciding that a call on it can run before initialization.
 6. Return a 2-4 sentence factual summary and the findings.
 
 ## Rule catalog

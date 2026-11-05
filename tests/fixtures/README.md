@@ -33,6 +33,29 @@ by `tests/generate_fixtures.py`.
 | `no_ad_format` | yes | yes | No ad format integrated |
 | `ad_load_missing` | yes | yes | Interstitial never loaded initially |
 | `ad_delegate_missing` | yes | yes | Rewarded ad delegate never set |
-| `ad_reload_missing` | yes | yes | Interstitial not reloaded in `didHide` |
+| `ad_reload_missing_on_hide` | yes | yes | Interstitial not reloaded when hidden |
+| `ad_reload_missing_on_display_fail` | yes | yes | Interstitial not reloaded when it fails to display |
+| `ad_reload_missing_on_load_fail` | yes | yes | Interstitial failed load is logged, never retried |
 | `network_missing` | yes | | No Unity Ads adapter |
 | `cmp_missing` | yes | yes | No consent flow, no `NSUserTrackingUsageDescription` |
+
+Harder cases. `clean_*` are correct apps written in a less obvious way, `decoy_*` add code that
+looks like a fix but never runs, `multi_*` combine single defects from the table above, and
+`large_*` add 30 unrelated game stores and a shop screen that shows the rewarded ad.
+
+| Case (fixture suffix) | Swift | Objective-C | Change from the clean app |
+| --- | --- | --- | --- |
+| `clean_reload_helper` | yes | yes | Interstitial callbacks reload through a private helper |
+| `clean_lazy_ad_setup` | yes | yes | Interstitial created lazily; the delegate is set there |
+| `clean_ump_consent` | yes | yes | Google UMP form and ATT prompt before MAX init, AppLovin flow off |
+| `clean_swiftui_app` | yes | | SwiftUI `App` initializer starts MAX; no `AppDelegate` |
+| `clean_init_via_bootstrap` | | yes | Launch calls an `AppBootstrap` class that starts MAX |
+| `decoy_commented_load` | yes | yes | Interstitial first load commented out |
+| `decoy_dead_reload` | yes | yes | Interstitial not reloaded when hidden; an unused method would |
+| `decoy_sample_code` | yes | yes | No `mediationProvider`; a correct sample sits in `Samples/`, outside the target |
+| `decoy_extension_plist` | yes | | Clean app plus a notification extension whose `Info.plist` has no MAX keys |
+| `multi_podfile_and_privacy` | yes | | `sdk_outdated`, `network_missing` and `cmp_missing` |
+| `multi_init_config` | yes | yes | `sdk_key_missing` and `mediation_provider_missing`, plus `skadnetwork_missing` (Swift) or `cmp_missing` (Objective-C) |
+| `multi_ad_lifecycle` | yes | yes | `ad_delegate_missing` and `ad_reload_missing_on_display_fail` |
+| `large_clean` | yes | yes | Clean, with the extra game code |
+| `large_rewarded_reload_missing_on_hide` | yes | yes | Extra game code; rewarded ad not reloaded when hidden |

@@ -83,7 +83,6 @@ def inspect_app_project(root: Path, config: Config, reference: ReferenceData) ->
         raise UnsupportedProjectError(f"{root} is not an iOS project")
 
     return RepositoryInfo(
-        project=root.name,
         platform="ios" if is_ios else "unknown",
         dependency_files=dependency_files,
         dependencies=dependencies,

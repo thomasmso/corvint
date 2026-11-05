@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		358DA2757A9BAB4286D4F6C3 /* RewardedAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3571DDE7297A8A957853A1D /* RewardedAdController.swift */; };
+		3F36B06C115A543F86997B35 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E82315006E26D8B3727D98 /* GameViewController.swift */; };
+		721500CC9F8C3ED62FB34380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86B8CA6761E3FB94B2EE4D4 /* AppDelegate.swift */; };
+		7A10AA4A63926718019259E1 /* InterstitialAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1813CA1CB53DF433910D37 /* InterstitialAdController.swift */; };
+		96368418E1C89EEEBB837985 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C024979BBDF306CBD1739266 /* NotificationService.swift */; };
+		A4DD9C29E60F6D8E45B66380 /* PuzzleQuestNotifications.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9949A5C1D426A3E2BE05D7C3 /* PuzzleQuestNotifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A82A4546DD3794E0B5274246 /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA6391BC765333341055863 /* AdManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FD6425A59055D3A68BFAD534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11E5C3BAA459AF1A7FD16104 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 711CF40E66E77EFD360D24F7;
+			remoteInfo = PuzzleQuestNotifications;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED828C8D2291E162AA04D159 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A4DD9C29E60F6D8E45B66380 /* PuzzleQuestNotifications.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		265186929D9A1DD19DC75C4F /* PuzzleQuest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PuzzleQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A1813CA1CB53DF433910D37 /* InterstitialAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdController.swift; sourceTree = "<group>"; };
+		75BB0E2BB67D744B6EEE17F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		83E82315006E26D8B3727D98 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		9949A5C1D426A3E2BE05D7C3 /* PuzzleQuestNotifications.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = PuzzleQuestNotifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEA6391BC765333341055863 /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		B86B8CA6761E3FB94B2EE4D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C024979BBDF306CBD1739266 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C3571DDE7297A8A957853A1D /* RewardedAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdController.swift; sourceTree = "<group>"; };
+		E730ADCBDE55690330FD1320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		419EA272E98CFED238C081BE /* PuzzleQuest */ = {
+			isa = PBXGroup;
+			children = (
+				B86B8CA6761E3FB94B2EE4D4 /* AppDelegate.swift */,
+				83E82315006E26D8B3727D98 /* GameViewController.swift */,
+				75BB0E2BB67D744B6EEE17F2 /* Info.plist */,
+				8D0225CD881671A9D53A3567 /* Ads */,
+			);
+			path = PuzzleQuest;
+			sourceTree = "<group>";
+		};
+		54FF97ADE9A64B5BA5CC9EFB = {
+			isa = PBXGroup;
+			children = (
+				419EA272E98CFED238C081BE /* PuzzleQuest */,
+				CE7AE1124C38A0D5C36C2EF4 /* PuzzleQuestNotifications */,
+				B856F45E3DD4E043C9EC4462 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8D0225CD881671A9D53A3567 /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				AEA6391BC765333341055863 /* AdManager.swift */,
+				4A1813CA1CB53DF433910D37 /* InterstitialAdController.swift */,
+				C3571DDE7297A8A957853A1D /* RewardedAdController.swift */,
+			);
+			path = Ads;
+			sourceTree = "<group>";
+		};
+		B856F45E3DD4E043C9EC4462 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				265186929D9A1DD19DC75C4F /* PuzzleQuest.app */,
+				9949A5C1D426A3E2BE05D7C3 /* PuzzleQuestNotifications.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE7AE1124C38A0D5C36C2EF4 /* PuzzleQuestNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				E730ADCBDE55690330FD1320 /* Info.plist */,
+				C024979BBDF306CBD1739266 /* NotificationService.swift */,
+			);
+			path = PuzzleQuestNotifications;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		711CF40E66E77EFD360D24F7 /* PuzzleQuestNotifications */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8532847EB644195F2E34A1A /* Build configuration list for PBXNativeTarget "PuzzleQuestNotifications" */;
+			buildPhases = (
+				25994DD23B19186B6645D2CE /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PuzzleQuestNotifications;
+			packageProductDependencies = (
+			);
+			productName = PuzzleQuestNotifications;
+			productReference = 9949A5C1D426A3E2BE05D7C3 /* PuzzleQuestNotifications.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		BA167D3F62665234D294A4D5 /* PuzzleQuest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7C7FFD7805CE1384619BC86 /* Build configuration list for PBXNativeTarget "PuzzleQuest" */;
+			buildPhases = (
+				D189BDCA2AC95A19958677DB /* Sources */,
+				ED828C8D2291E162AA04D159 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F40ED0378FE9AA0CF6D464DD /* PBXTargetDependency */,
+			);
+			name = PuzzleQuest;
+			packageProductDependencies = (
+			);
+			productName = PuzzleQuest;
+			productReference = 265186929D9A1DD19DC75C4F /* PuzzleQuest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11E5C3BAA459AF1A7FD16104 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 706787760A2EBFFDCE7A19A9 /* Build configuration list for PBXProject "PuzzleQuest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 54FF97ADE9A64B5BA5CC9EFB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B856F45E3DD4E043C9EC4462 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA167D3F62665234D294A4D5 /* PuzzleQuest */,
+				711CF40E66E77EFD360D24F7 /* PuzzleQuestNotifications */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		25994DD23B19186B6645D2CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96368418E1C89EEEBB837985 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D189BDCA2AC95A19958677DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A82A4546DD3794E0B5274246 /* AdManager.swift in Sources */,
+				721500CC9F8C3ED62FB34380 /* AppDelegate.swift in Sources */,
+				3F36B06C115A543F86997B35 /* GameViewController.swift in Sources */,
+				7A10AA4A63926718019259E1 /* InterstitialAdController.swift in Sources */,
+				358DA2757A9BAB4286D4F6C3 /* RewardedAdController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F40ED0378FE9AA0CF6D464DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 711CF40E66E77EFD360D24F7 /* PuzzleQuestNotifications */;
+			targetProxy = FD6425A59055D3A68BFAD534 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03715F4FCD0BAF1730BC80D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuestNotifications/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app.notifications;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		263C7A6757E7A530527D84FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4614FD89A0DEEE55AA77AC6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E6A2A4AD3B087AACFE53F32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9F68B53C6191125AF93D5D10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuestNotifications/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app.notifications;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F11FB13BC5FCB8F5D97810EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		706787760A2EBFFDCE7A19A9 /* Build configuration list for PBXProject "PuzzleQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E6A2A4AD3B087AACFE53F32 /* Debug */,
+				263C7A6757E7A530527D84FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C8532847EB644195F2E34A1A /* Build configuration list for PBXNativeTarget "PuzzleQuestNotifications" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F68B53C6191125AF93D5D10 /* Debug */,
+				03715F4FCD0BAF1730BC80D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7C7FFD7805CE1384619BC86 /* Build configuration list for PBXNativeTarget "PuzzleQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4614FD89A0DEEE55AA77AC6D /* Debug */,
+				F11FB13BC5FCB8F5D97810EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11E5C3BAA459AF1A7FD16104 /* Project object */;
+}

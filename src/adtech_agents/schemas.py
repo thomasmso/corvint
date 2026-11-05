@@ -43,7 +43,6 @@ class InfoPlist(BaseModel):
 
 
 class RepositoryInfo(BaseModel):
-    project: str
     platform: Literal["ios", "unknown"]
     dependency_files: list[str]
     """

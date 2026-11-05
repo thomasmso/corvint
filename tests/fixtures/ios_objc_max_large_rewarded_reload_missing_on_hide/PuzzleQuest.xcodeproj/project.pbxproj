@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02505328EB43E83E12C56097 /* PQFriendsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E5E1460608E898FEBA9EC2 /* PQFriendsStore.m */; };
+		04C2920AF2600B42576353A8 /* AdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD42E4CA16D04029045BA41 /* AdManager.m */; };
+		173F01A42586E0B3A7357BC9 /* PQLivesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B66F25C8D206D95E370F25 /* PQLivesStore.m */; };
+		1EE437F864790F64D2139009 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AA539BF0E9EFEB29160FD /* AppDelegate.m */; };
+		2141351E186C6F0549F37608 /* PQThemeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D65E446D60FF6C09CAD4540 /* PQThemeStore.m */; };
+		23D0D792E283288DEA8158DD /* PQLevelStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AEBF7CE91CAAB955AF3D0351 /* PQLevelStore.m */; };
+		2618FA24284872379BD32B54 /* PQChestsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F645AC6B448B35EC71D91804 /* PQChestsStore.m */; };
+		26500A765BE0DC470A7E82CB /* PQDailyRewardStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E907FBB7858377CB60528651 /* PQDailyRewardStore.m */; };
+		27D48129672FC7AC8E5B2E64 /* RewardedAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BCB853E5C3F53480097ECD /* RewardedAdController.m */; };
+		29AF71BF230F8AED6AEF4CE0 /* PQRatingPromptStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD84EF39C1C4D297A933F56E /* PQRatingPromptStore.m */; };
+		2B0910FC71E05CAD85E6662E /* PQAchievementsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2286D2ACA21CC801700EC3 /* PQAchievementsStore.m */; };
+		33CAA78FDD8CEB44A8788C57 /* PQTilesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6141AF88DA9FABA43E982E /* PQTilesStore.m */; };
+		461EDE26410E94F37C6D0803 /* PQStarsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBF400F0053567078D39B88 /* PQStarsStore.m */; };
+		4FA4923F0CB0B2760BE97E8D /* PQHapticsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D7B17C82A61A6AB3A394C9 /* PQHapticsStore.m */; };
+		58940CF468713BFD45CC7CD2 /* PQSessionsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 460E8C234BA8D622EE3F86CA /* PQSessionsStore.m */; };
+		5B5DEAA2B267EDC889D02C28 /* PQTimerStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 480E275C67044187F122890F /* PQTimerStore.m */; };
+		5DF69471AC0055D455D97EAF /* PQQuestsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D570E847C506F7C994CCA /* PQQuestsStore.m */; };
+		6E0778F5D110DDF33F2D8E9A /* PQMusicStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 41956CB939498987D842D780 /* PQMusicStore.m */; };
+		6F8E8E160A58222DE90CAEAD /* PQBadgesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DE524A8B0148B862C5C552 /* PQBadgesStore.m */; };
+		80C9FC41A762AB5DA4A8D017 /* PQSoundStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 437551907059454E4BDA7F1A /* PQSoundStore.m */; };
+		883C4F931F07CA2D1AC691C2 /* PQBoostersStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB82E23CD34C6A938B59E5A /* PQBoostersStore.m */; };
+		957EFD2B12E15A47810A1CE7 /* PQSkinsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CE46ED6A9FBBDDC72657DC22 /* PQSkinsStore.m */; };
+		A25FBAE04D5F58B554DB7EF1 /* PQSeasonPassStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75385618539ACA6FAE4F12AD /* PQSeasonPassStore.m */; };
+		B3D8FA47EEE2C8397ADB75AC /* PQHintsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E635F6F0A695DE92FE6502A4 /* PQHintsStore.m */; };
+		BD86FF9F754813FF69038526 /* PQComboStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 40896B1C9CC21BA95DCA895F /* PQComboStore.m */; };
+		BFA532764202E11C4C96574D /* InterstitialAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666D85C2D6413171C78FE221 /* InterstitialAdController.m */; };
+		D82794DB1B2968CD208DD12D /* PQPuzzlesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C4EFC55D140810EE47AAD99F /* PQPuzzlesStore.m */; };
+		DA166A606A4F800B1F810298 /* PQGiftsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B608CC97125BA84C56720F2 /* PQGiftsStore.m */; };
+		E18884B3FF6D0159B76EB5A0 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBCF84E2F32911F22501700 /* ShopViewController.m */; };
+		E4D0DCF18F20B3D40322CAA5 /* PQCoinsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A41DF4F479F6933078B52B /* PQCoinsStore.m */; };
+		E527D87076F0D634AF703AF4 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2A63A6EA3276B855FEDEB7 /* GameViewController.m */; };
+		E62A4B1AE6E60EC7692DCDE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 950867E455735CF4444A73AB /* main.m */; };
+		F0B15DDC082DDCE448474F18 /* PQInventoryStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D3226A2C182056149EA7B /* PQInventoryStore.m */; };
+		F33A37FA70EA4BB06EF3C1C4 /* PQStreakStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE29790A69BBC4CE3F45D /* PQStreakStore.m */; };
+		F5EE4A2D33D5BF1EEAA22EE3 /* PQLeaderboardStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0044DDF1024F794CC8BCA0D8 /* PQLeaderboardStore.m */; };
+		F6718BC29634DD7B387341BA /* PQTutorialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F38E450EC6038D323CDE6C /* PQTutorialStore.m */; };
+		FB6879C0ECCE228B73974ABD /* PQEventsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC95CB85EE04A9105D0B304 /* PQEventsStore.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0044DDF1024F794CC8BCA0D8 /* PQLeaderboardStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQLeaderboardStore.m; sourceTree = "<group>"; };
+		04E5E1460608E898FEBA9EC2 /* PQFriendsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQFriendsStore.m; sourceTree = "<group>"; };
+		0562FAB78A9028F849EEA82C /* AdManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdManager.h; sourceTree = "<group>"; };
+		07DAE29790A69BBC4CE3F45D /* PQStreakStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQStreakStore.m; sourceTree = "<group>"; };
+		172D24C85F8B0DAA7D1E3002 /* PQInventoryStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQInventoryStore.h; sourceTree = "<group>"; };
+		1AD42E4CA16D04029045BA41 /* AdManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdManager.m; sourceTree = "<group>"; };
+		213049E09C30FED5DA52F23A /* PQTilesStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQTilesStore.h; sourceTree = "<group>"; };
+		265186929D9A1DD19DC75C4F /* PuzzleQuest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PuzzleQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2673B0BB7CCE81373F9641E8 /* PQGiftsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQGiftsStore.h; sourceTree = "<group>"; };
+		2F2286D2ACA21CC801700EC3 /* PQAchievementsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQAchievementsStore.m; sourceTree = "<group>"; };
+		3D65E446D60FF6C09CAD4540 /* PQThemeStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQThemeStore.m; sourceTree = "<group>"; };
+		3D8246146B6018A8AC140186 /* ShopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
+		3DF661EE658BA9C44D59A4A2 /* PQPuzzlesStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQPuzzlesStore.h; sourceTree = "<group>"; };
+		406D3226A2C182056149EA7B /* PQInventoryStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQInventoryStore.m; sourceTree = "<group>"; };
+		40896B1C9CC21BA95DCA895F /* PQComboStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQComboStore.m; sourceTree = "<group>"; };
+		41956CB939498987D842D780 /* PQMusicStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQMusicStore.m; sourceTree = "<group>"; };
+		437551907059454E4BDA7F1A /* PQSoundStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQSoundStore.m; sourceTree = "<group>"; };
+		44A6A1C29C77108DCAC7DD38 /* RewardedAdController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RewardedAdController.h; sourceTree = "<group>"; };
+		460E8C234BA8D622EE3F86CA /* PQSessionsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQSessionsStore.m; sourceTree = "<group>"; };
+		47B66F25C8D206D95E370F25 /* PQLivesStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQLivesStore.m; sourceTree = "<group>"; };
+		47BB021835623D42E9C9A199 /* PQTutorialStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQTutorialStore.h; sourceTree = "<group>"; };
+		480E275C67044187F122890F /* PQTimerStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQTimerStore.m; sourceTree = "<group>"; };
+		4E825D1903F892455D26B48E /* PQFriendsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQFriendsStore.h; sourceTree = "<group>"; };
+		4FBF400F0053567078D39B88 /* PQStarsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQStarsStore.m; sourceTree = "<group>"; };
+		52962FEF2A99E93515F44767 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		6511F8FF1386FFB8241EE2A7 /* PQSessionsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQSessionsStore.h; sourceTree = "<group>"; };
+		666D85C2D6413171C78FE221 /* InterstitialAdController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterstitialAdController.m; sourceTree = "<group>"; };
+		674DCAE28650BDE7C3EF89A0 /* PQLivesStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQLivesStore.h; sourceTree = "<group>"; };
+		75385618539ACA6FAE4F12AD /* PQSeasonPassStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQSeasonPassStore.m; sourceTree = "<group>"; };
+		75BB0E2BB67D744B6EEE17F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		79D7B17C82A61A6AB3A394C9 /* PQHapticsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQHapticsStore.m; sourceTree = "<group>"; };
+		825BCB9F459A365CB80630AD /* PQHintsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQHintsStore.h; sourceTree = "<group>"; };
+		86D9DFF3021F28247D77C76F /* PQDailyRewardStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQDailyRewardStore.h; sourceTree = "<group>"; };
+		8B608CC97125BA84C56720F2 /* PQGiftsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQGiftsStore.m; sourceTree = "<group>"; };
+		8BB82E23CD34C6A938B59E5A /* PQBoostersStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQBoostersStore.m; sourceTree = "<group>"; };
+		8ED22B45DAF523467EDFFF3A /* PQStreakStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQStreakStore.h; sourceTree = "<group>"; };
+		9260168F5C994CD8DD5A951B /* PQEventsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQEventsStore.h; sourceTree = "<group>"; };
+		950867E455735CF4444A73AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9BB76F663D561EDCE7422218 /* PQSkinsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQSkinsStore.h; sourceTree = "<group>"; };
+		9F3076166F836E1D557FE396 /* PQBadgesStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQBadgesStore.h; sourceTree = "<group>"; };
+		A0647FC9B1AE208ECE2C9D16 /* PQHapticsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQHapticsStore.h; sourceTree = "<group>"; };
+		A6CC67A8E933856396E9DF11 /* PQTimerStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQTimerStore.h; sourceTree = "<group>"; };
+		AEBF7CE91CAAB955AF3D0351 /* PQLevelStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQLevelStore.m; sourceTree = "<group>"; };
+		AF7A48B26C44C6CA75B2E354 /* PQAchievementsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQAchievementsStore.h; sourceTree = "<group>"; };
+		B7F38E450EC6038D323CDE6C /* PQTutorialStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQTutorialStore.m; sourceTree = "<group>"; };
+		BA2A63A6EA3276B855FEDEB7 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		BA2AA539BF0E9EFEB29160FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BCBCF84E2F32911F22501700 /* ShopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
+		BCE72B7E3340090020755027 /* PQQuestsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQQuestsStore.h; sourceTree = "<group>"; };
+		C1800F3AE4814A84B27DBECA /* PQComboStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQComboStore.h; sourceTree = "<group>"; };
+		C4DE524A8B0148B862C5C552 /* PQBadgesStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQBadgesStore.m; sourceTree = "<group>"; };
+		C4EFC55D140810EE47AAD99F /* PQPuzzlesStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQPuzzlesStore.m; sourceTree = "<group>"; };
+		C6B872A5F9FC9DCB48CA7F15 /* PQSoundStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQSoundStore.h; sourceTree = "<group>"; };
+		C8455DC34C37DEA38414612C /* PQBoostersStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQBoostersStore.h; sourceTree = "<group>"; };
+		CAC95CB85EE04A9105D0B304 /* PQEventsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQEventsStore.m; sourceTree = "<group>"; };
+		CBF96542B659E51676559246 /* PQMusicStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQMusicStore.h; sourceTree = "<group>"; };
+		CC17C97CF70CD1AE5BA55C59 /* PQThemeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQThemeStore.h; sourceTree = "<group>"; };
+		CE46ED6A9FBBDDC72657DC22 /* PQSkinsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQSkinsStore.m; sourceTree = "<group>"; };
+		D151B740C3B376A1DDBF9874 /* PQRatingPromptStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQRatingPromptStore.h; sourceTree = "<group>"; };
+		D6A41DF4F479F6933078B52B /* PQCoinsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQCoinsStore.m; sourceTree = "<group>"; };
+		DD84EF39C1C4D297A933F56E /* PQRatingPromptStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQRatingPromptStore.m; sourceTree = "<group>"; };
+		DDDD707BAB66E8C6173EC623 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DEB10522774C34367D9A7756 /* PQLeaderboardStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQLeaderboardStore.h; sourceTree = "<group>"; };
+		E1EE636D7CAAE118316FB3DA /* InterstitialAdController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterstitialAdController.h; sourceTree = "<group>"; };
+		E2292F61D279DAA6673BF98B /* PQSeasonPassStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQSeasonPassStore.h; sourceTree = "<group>"; };
+		E3DDD90D1CF0600587C29E09 /* PQChestsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQChestsStore.h; sourceTree = "<group>"; };
+		E635F6F0A695DE92FE6502A4 /* PQHintsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQHintsStore.m; sourceTree = "<group>"; };
+		E77D570E847C506F7C994CCA /* PQQuestsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQQuestsStore.m; sourceTree = "<group>"; };
+		E907FBB7858377CB60528651 /* PQDailyRewardStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQDailyRewardStore.m; sourceTree = "<group>"; };
+		E9BCB853E5C3F53480097ECD /* RewardedAdController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RewardedAdController.m; sourceTree = "<group>"; };
+		EDDF0DEEFEB4A3A148D8AED0 /* PQCoinsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQCoinsStore.h; sourceTree = "<group>"; };
+		EE6141AF88DA9FABA43E982E /* PQTilesStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQTilesStore.m; sourceTree = "<group>"; };
+		F43605EA50DDC6CE0AFC08C8 /* PQLevelStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQLevelStore.h; sourceTree = "<group>"; };
+		F645AC6B448B35EC71D91804 /* PQChestsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQChestsStore.m; sourceTree = "<group>"; };
+		FBF9EB3A5079C004D6D7E2F1 /* PQStarsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PQStarsStore.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		419EA272E98CFED238C081BE /* PuzzleQuest */ = {
+			isa = PBXGroup;
+			children = (
+				DDDD707BAB66E8C6173EC623 /* AppDelegate.h */,
+				BA2AA539BF0E9EFEB29160FD /* AppDelegate.m */,
+				52962FEF2A99E93515F44767 /* GameViewController.h */,
+				BA2A63A6EA3276B855FEDEB7 /* GameViewController.m */,
+				75BB0E2BB67D744B6EEE17F2 /* Info.plist */,
+				950867E455735CF4444A73AB /* main.m */,
+				8D0225CD881671A9D53A3567 /* Ads */,
+				EBAC60D0FC76600C86EF8137 /* Game */,
+				7D40D7AE4A365AD2154E81FB /* Shop */,
+			);
+			path = PuzzleQuest;
+			sourceTree = "<group>";
+		};
+		54FF97ADE9A64B5BA5CC9EFB = {
+			isa = PBXGroup;
+			children = (
+				419EA272E98CFED238C081BE /* PuzzleQuest */,
+				B856F45E3DD4E043C9EC4462 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7D40D7AE4A365AD2154E81FB /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				3D8246146B6018A8AC140186 /* ShopViewController.h */,
+				BCBCF84E2F32911F22501700 /* ShopViewController.m */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		8D0225CD881671A9D53A3567 /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				0562FAB78A9028F849EEA82C /* AdManager.h */,
+				1AD42E4CA16D04029045BA41 /* AdManager.m */,
+				E1EE636D7CAAE118316FB3DA /* InterstitialAdController.h */,
+				666D85C2D6413171C78FE221 /* InterstitialAdController.m */,
+				44A6A1C29C77108DCAC7DD38 /* RewardedAdController.h */,
+				E9BCB853E5C3F53480097ECD /* RewardedAdController.m */,
+			);
+			path = Ads;
+			sourceTree = "<group>";
+		};
+		B856F45E3DD4E043C9EC4462 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				265186929D9A1DD19DC75C4F /* PuzzleQuest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBAC60D0FC76600C86EF8137 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				AF7A48B26C44C6CA75B2E354 /* PQAchievementsStore.h */,
+				2F2286D2ACA21CC801700EC3 /* PQAchievementsStore.m */,
+				9F3076166F836E1D557FE396 /* PQBadgesStore.h */,
+				C4DE524A8B0148B862C5C552 /* PQBadgesStore.m */,
+				C8455DC34C37DEA38414612C /* PQBoostersStore.h */,
+				8BB82E23CD34C6A938B59E5A /* PQBoostersStore.m */,
+				E3DDD90D1CF0600587C29E09 /* PQChestsStore.h */,
+				F645AC6B448B35EC71D91804 /* PQChestsStore.m */,
+				EDDF0DEEFEB4A3A148D8AED0 /* PQCoinsStore.h */,
+				D6A41DF4F479F6933078B52B /* PQCoinsStore.m */,
+				C1800F3AE4814A84B27DBECA /* PQComboStore.h */,
+				40896B1C9CC21BA95DCA895F /* PQComboStore.m */,
+				86D9DFF3021F28247D77C76F /* PQDailyRewardStore.h */,
+				E907FBB7858377CB60528651 /* PQDailyRewardStore.m */,
+				9260168F5C994CD8DD5A951B /* PQEventsStore.h */,
+				CAC95CB85EE04A9105D0B304 /* PQEventsStore.m */,
+				4E825D1903F892455D26B48E /* PQFriendsStore.h */,
+				04E5E1460608E898FEBA9EC2 /* PQFriendsStore.m */,
+				2673B0BB7CCE81373F9641E8 /* PQGiftsStore.h */,
+				8B608CC97125BA84C56720F2 /* PQGiftsStore.m */,
+				A0647FC9B1AE208ECE2C9D16 /* PQHapticsStore.h */,
+				79D7B17C82A61A6AB3A394C9 /* PQHapticsStore.m */,
+				825BCB9F459A365CB80630AD /* PQHintsStore.h */,
+				E635F6F0A695DE92FE6502A4 /* PQHintsStore.m */,
+				172D24C85F8B0DAA7D1E3002 /* PQInventoryStore.h */,
+				406D3226A2C182056149EA7B /* PQInventoryStore.m */,
+				DEB10522774C34367D9A7756 /* PQLeaderboardStore.h */,
+				0044DDF1024F794CC8BCA0D8 /* PQLeaderboardStore.m */,
+				F43605EA50DDC6CE0AFC08C8 /* PQLevelStore.h */,
+				AEBF7CE91CAAB955AF3D0351 /* PQLevelStore.m */,
+				674DCAE28650BDE7C3EF89A0 /* PQLivesStore.h */,
+				47B66F25C8D206D95E370F25 /* PQLivesStore.m */,
+				CBF96542B659E51676559246 /* PQMusicStore.h */,
+				41956CB939498987D842D780 /* PQMusicStore.m */,
+				3DF661EE658BA9C44D59A4A2 /* PQPuzzlesStore.h */,
+				C4EFC55D140810EE47AAD99F /* PQPuzzlesStore.m */,
+				BCE72B7E3340090020755027 /* PQQuestsStore.h */,
+				E77D570E847C506F7C994CCA /* PQQuestsStore.m */,
+				D151B740C3B376A1DDBF9874 /* PQRatingPromptStore.h */,
+				DD84EF39C1C4D297A933F56E /* PQRatingPromptStore.m */,
+				E2292F61D279DAA6673BF98B /* PQSeasonPassStore.h */,
+				75385618539ACA6FAE4F12AD /* PQSeasonPassStore.m */,
+				6511F8FF1386FFB8241EE2A7 /* PQSessionsStore.h */,
+				460E8C234BA8D622EE3F86CA /* PQSessionsStore.m */,
+				9BB76F663D561EDCE7422218 /* PQSkinsStore.h */,
+				CE46ED6A9FBBDDC72657DC22 /* PQSkinsStore.m */,
+				C6B872A5F9FC9DCB48CA7F15 /* PQSoundStore.h */,
+				437551907059454E4BDA7F1A /* PQSoundStore.m */,
+				FBF9EB3A5079C004D6D7E2F1 /* PQStarsStore.h */,
+				4FBF400F0053567078D39B88 /* PQStarsStore.m */,
+				8ED22B45DAF523467EDFFF3A /* PQStreakStore.h */,
+				07DAE29790A69BBC4CE3F45D /* PQStreakStore.m */,
+				CC17C97CF70CD1AE5BA55C59 /* PQThemeStore.h */,
+				3D65E446D60FF6C09CAD4540 /* PQThemeStore.m */,
+				213049E09C30FED5DA52F23A /* PQTilesStore.h */,
+				EE6141AF88DA9FABA43E982E /* PQTilesStore.m */,
+				A6CC67A8E933856396E9DF11 /* PQTimerStore.h */,
+				480E275C67044187F122890F /* PQTimerStore.m */,
+				47BB021835623D42E9C9A199 /* PQTutorialStore.h */,
+				B7F38E450EC6038D323CDE6C /* PQTutorialStore.m */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA167D3F62665234D294A4D5 /* PuzzleQuest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7C7FFD7805CE1384619BC86 /* Build configuration list for PBXNativeTarget "PuzzleQuest" */;
+			buildPhases = (
+				D189BDCA2AC95A19958677DB /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PuzzleQuest;
+			packageProductDependencies = (
+			);
+			productName = PuzzleQuest;
+			productReference = 265186929D9A1DD19DC75C4F /* PuzzleQuest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11E5C3BAA459AF1A7FD16104 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 706787760A2EBFFDCE7A19A9 /* Build configuration list for PBXProject "PuzzleQuest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 54FF97ADE9A64B5BA5CC9EFB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B856F45E3DD4E043C9EC4462 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA167D3F62665234D294A4D5 /* PuzzleQuest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D189BDCA2AC95A19958677DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04C2920AF2600B42576353A8 /* AdManager.m in Sources */,
+				1EE437F864790F64D2139009 /* AppDelegate.m in Sources */,
+				E527D87076F0D634AF703AF4 /* GameViewController.m in Sources */,
+				BFA532764202E11C4C96574D /* InterstitialAdController.m in Sources */,
+				2B0910FC71E05CAD85E6662E /* PQAchievementsStore.m in Sources */,
+				6F8E8E160A58222DE90CAEAD /* PQBadgesStore.m in Sources */,
+				883C4F931F07CA2D1AC691C2 /* PQBoostersStore.m in Sources */,
+				2618FA24284872379BD32B54 /* PQChestsStore.m in Sources */,
+				E4D0DCF18F20B3D40322CAA5 /* PQCoinsStore.m in Sources */,
+				BD86FF9F754813FF69038526 /* PQComboStore.m in Sources */,
+				26500A765BE0DC470A7E82CB /* PQDailyRewardStore.m in Sources */,
+				FB6879C0ECCE228B73974ABD /* PQEventsStore.m in Sources */,
+				02505328EB43E83E12C56097 /* PQFriendsStore.m in Sources */,
+				DA166A606A4F800B1F810298 /* PQGiftsStore.m in Sources */,
+				4FA4923F0CB0B2760BE97E8D /* PQHapticsStore.m in Sources */,
+				B3D8FA47EEE2C8397ADB75AC /* PQHintsStore.m in Sources */,
+				F0B15DDC082DDCE448474F18 /* PQInventoryStore.m in Sources */,
+				F5EE4A2D33D5BF1EEAA22EE3 /* PQLeaderboardStore.m in Sources */,
+				23D0D792E283288DEA8158DD /* PQLevelStore.m in Sources */,
+				173F01A42586E0B3A7357BC9 /* PQLivesStore.m in Sources */,
+				6E0778F5D110DDF33F2D8E9A /* PQMusicStore.m in Sources */,
+				D82794DB1B2968CD208DD12D /* PQPuzzlesStore.m in Sources */,
+				5DF69471AC0055D455D97EAF /* PQQuestsStore.m in Sources */,
+				29AF71BF230F8AED6AEF4CE0 /* PQRatingPromptStore.m in Sources */,
+				A25FBAE04D5F58B554DB7EF1 /* PQSeasonPassStore.m in Sources */,
+				58940CF468713BFD45CC7CD2 /* PQSessionsStore.m in Sources */,
+				957EFD2B12E15A47810A1CE7 /* PQSkinsStore.m in Sources */,
+				80C9FC41A762AB5DA4A8D017 /* PQSoundStore.m in Sources */,
+				461EDE26410E94F37C6D0803 /* PQStarsStore.m in Sources */,
+				F33A37FA70EA4BB06EF3C1C4 /* PQStreakStore.m in Sources */,
+				2141351E186C6F0549F37608 /* PQThemeStore.m in Sources */,
+				33CAA78FDD8CEB44A8788C57 /* PQTilesStore.m in Sources */,
+				5B5DEAA2B267EDC889D02C28 /* PQTimerStore.m in Sources */,
+				F6718BC29634DD7B387341BA /* PQTutorialStore.m in Sources */,
+				27D48129672FC7AC8E5B2E64 /* RewardedAdController.m in Sources */,
+				E18884B3FF6D0159B76EB5A0 /* ShopViewController.m in Sources */,
+				E62A4B1AE6E60EC7692DCDE1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		263C7A6757E7A530527D84FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4614FD89A0DEEE55AA77AC6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E6A2A4AD3B087AACFE53F32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F11FB13BC5FCB8F5D97810EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PuzzleQuest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.puzzlequest.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		706787760A2EBFFDCE7A19A9 /* Build configuration list for PBXProject "PuzzleQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E6A2A4AD3B087AACFE53F32 /* Debug */,
+				263C7A6757E7A530527D84FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7C7FFD7805CE1384619BC86 /* Build configuration list for PBXNativeTarget "PuzzleQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4614FD89A0DEEE55AA77AC6D /* Debug */,
+				F11FB13BC5FCB8F5D97810EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11E5C3BAA459AF1A7FD16104 /* Project object */;
+}
