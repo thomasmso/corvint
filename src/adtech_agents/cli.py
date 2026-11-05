@@ -15,7 +15,7 @@ from dotenv import find_dotenv, load_dotenv
 
 from adtech_agents.config import Config
 from adtech_agents.context import Context
-from adtech_agents.evals import render_scores, run_suite
+from adtech_agents.evals import render_scores, run_suite, save_results
 from adtech_agents.reference_data import ReferenceDataError
 from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
@@ -64,6 +64,8 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
         case "eval":
             scores = asyncio.run(run_suite(ctx))
             print(render_scores(scores))
+            path = save_results(scores, ctx.config.EVAL_RESULTS_DIR)
+            logging.info(f"Saved eval results to {path}")
             return 1 if any(score.error for score in scores) else 0
         case _:
             logging.error(f"Unknown command: {args.command}")

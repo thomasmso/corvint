@@ -1,6 +1,16 @@
 from __future__ import annotations
 
-from adtech_agents.evals import EvalCase, ExpectedFinding, load_cases, score_case
+import json
+from pathlib import Path
+
+from adtech_agents.evals import (
+    CaseScore,
+    EvalCase,
+    ExpectedFinding,
+    load_cases,
+    save_results,
+    score_case,
+)
 from adtech_agents.schemas import Evidence, Finding
 from tests.conftest import SUITE
 
@@ -44,3 +54,16 @@ def test_scoring_counts_hits_false_alarms_and_misses() -> None:
     score = score_case(findings, case)
     assert (score.tp, score.fp, score.fn) == (1, 2, 1)
     assert score.false_positives == ["MAX-OTHER (banner): t", "MAX-INIT-MISSING (None): t"]
+    assert score.missed == ["MAX-INIT-MISSING (None)"]
+    assert not score.passed
+
+
+def test_results_file_lists_pass_and_fail(tmp_path: Path) -> None:
+    passed = CaseScore(case_id="clean", tp=0, fp=0, fn=0)
+    failed = CaseScore(case_id="bug", tp=0, fp=0, fn=1, missed=["MAX-INIT-MISSING (None)"])
+    results = json.loads(save_results([passed, failed], tmp_path / "results").read_text())
+    assert (results["passed"], results["recall"]) == (1, 0.0)
+    assert [(c["case_id"], c["passed"], c["missed"]) for c in results["cases"]] == [
+        ("clean", True, []),
+        ("bug", False, ["MAX-INIT-MISSING (None)"]),
+    ]

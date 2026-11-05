@@ -30,6 +30,7 @@ cp .env.example .env    # then set OPENAI_API_KEY
 ```bash
 uv run adtech audit --repo tests/fixtures/ios_max_clean   # prints the report as JSON
 uv run adtech eval                     # every case in tests/evals/cases.jsonl; calls the model per case
+                                       # results (pass/fail, misses, reports): eval-results/<time>.json
 ```
 
 To step through in Cursor/VS Code, use the configurations in `.vscode/launch.json` (F5).

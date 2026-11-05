@@ -38,6 +38,8 @@ class Config:
     EVAL_SUITE: Path = Path("tests/evals/cases.jsonl")
     # Saved reference data, so scores do not change when AppLovin publishes a release.
     EVAL_REFERENCE_DATA: Path = Path("tests/evals/reference_data.json")
+    # One JSON file per run (git-ignored: reports quote fixture code).
+    EVAL_RESULTS_DIR: Path = Path("eval-results")
 
     # --- Parallelism ---
     THREAD_POOL_SIZE: int = 8

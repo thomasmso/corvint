@@ -8,6 +8,9 @@ dist/
 .mypy_cache/
 .ruff_cache/
 
+# Eval results
+eval-results/
+
 # Local configuration and secrets
 .env
 .env.*
