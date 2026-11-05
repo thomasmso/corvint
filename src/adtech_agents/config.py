@@ -20,6 +20,11 @@ class Config:
     # Model turns per audit before the SDK raises `MaxTurnsExceeded`
     MAX_TURNS: int = 30
 
+    # --- Project inspection ---
+    # Max files supported per input project (excluding Pods/ and build output). Larger projects
+    # raise `UnsupportedProjectError` instead of being audited on partial repository info.
+    MAX_FILES: int = 20_000
+
     # --- Evals ---
     # Relative to the working directory: run `adtech eval` from the repository root.
     EVAL_SUITE: Path = Path("tests/evals/cases.jsonl")
