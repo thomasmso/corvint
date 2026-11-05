@@ -31,7 +31,16 @@ class Config:
     SDK_VERSIONS_URL: str = "https://trunk.cocoapods.org/api/v1/pods/AppLovinSDK"
     # AppLovin's SKAdNetwork IDs (https://support.applovin.com/en/max/ios/overview/skadnetwork).
     SKADNETWORK_IDS_URL: str = "https://skadnetwork-ids.applovin.com/v1/skadnetworkids.json"
+    # Check for newest iOS mediation adapter versions (via AppLovin's Integration Manager API)
+    ADAPTER_VERSIONS_URL: str = (
+        "https://unity.applovin.com/max/1.0/integration_manager_info?plugin_version=13.6.4"
+    )
     HTTP_TIMEOUT_SECONDS: float = 20.0
+
+    # --- Project changes ---
+    # Written to the app's Info.plist when installing the AdMob adapter without an AdMob app ID
+    # (the Google Mobile Ads SDK crashes at launch without one). The publisher must replace it.
+    ADMOB_APP_ID_PLACEHOLDER: str = "ca-app-pub-3555987499888888~8291888888"
 
     # --- Evals ---
     # Relative to the working directory: run `adtech eval` from the repository root.

@@ -24,8 +24,8 @@ from adtech_agents.tools.common import AuditContext, tool_error
 UNITY_PROJECT_MARKER = "ProjectSettings/ProjectVersion.txt"
 SDK_POD = "AppLovinSDK"
 
-_POD_RE = re.compile(r"""^\s*pod\s+['"]([^'"]+)['"](.*)$""")
-_POD_VERSION_RE = re.compile(r""",\s*['"]([^'"]+)['"]""")
+POD_RE = re.compile(r"""^\s*pod\s+['"]([^'"]+)['"](.*)$""")
+POD_VERSION_RE = re.compile(r""",\s*['"]([^'"]+)['"]""")
 _CONSTRAINT_RE = re.compile(r"^(~>|>=|<=|!=|=|>|<)?\s*(\d+(?:\.\d+)*)$")
 
 
@@ -94,14 +94,14 @@ def inspect_app_project(root: Path, config: Config, reference: ReferenceData) ->
 def _parse_podfile(file: str, content: str, latest_sdk_version: str) -> list[Dependency]:
     deps = []
     for number, line in enumerate(content.splitlines(), start=1):
-        match = _POD_RE.match(line.split("#", 1)[0])
+        match = POD_RE.match(line.split("#", 1)[0])
         if not match or not match.group(1).startswith("AppLovin"):
             continue
 
         # Parse out the AppLovin SDK or adapter version constraint
         # (e.g. '13.6.4', '~> 13.6', '>= 13.6.4', '')
         name = match.group(1)  # e.g. 'AppLovinSDK', 'AppLovinMediationUnityAdsAdapter'
-        constraints = _POD_VERSION_RE.findall(match.group(2))
+        constraints = POD_VERSION_RE.findall(match.group(2))
         deps.append(
             Dependency(
                 name=name,
