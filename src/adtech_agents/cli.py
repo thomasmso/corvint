@@ -1,6 +1,6 @@
 """
-`adtech` command line: `audit` one repository, `eval` the fixture suite, or `install` pods through
-a pull request.
+`adtech` command line: `chat` with the agent, `audit` one repository, `eval` the fixture suite, or
+`install` pods through a pull request.
 """
 
 from __future__ import annotations
@@ -11,9 +11,12 @@ import logging
 from collections.abc import Sequence
 from pathlib import Path
 
+import openai
+from agents import AgentsException
 from agents import _debug as agents_debug
 from dotenv import find_dotenv, load_dotenv
 
+from adtech_agents.chat_session import GREETING, ChatSession
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.evals import render_scores, run_suite, save_results
@@ -41,7 +44,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     logging.info(f"Starting {args.command}: args={vars(args)} config={config}")
 
     # TODO: Integrate OpenRouter
-    if args.command in ("audit", "eval") and not config.OPENAI_API_KEY:
+    if args.command in ("audit", "eval", "chat") and not config.OPENAI_API_KEY:
         logging.error("OPENAI_API_KEY is not set. Copy .env.example to .env and add your key.")
         return 2
 
@@ -53,8 +56,10 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 def _run(args: argparse.Namespace, ctx: Context) -> int:
-    # TODO: Implement chat mode (then we'd need `ask_user` tool, et al)
     match args.command:
+        case "chat":
+            asyncio.run(_chat(ctx))
+            return 0
         case "audit":
             try:
                 report = asyncio.run(audit_max_integration(args.repo, ctx))
@@ -87,9 +92,34 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
             return 2
 
 
+async def _chat(ctx: Context) -> None:
+    session = ChatSession(ctx, allow_local_paths=True)
+    print(f"{GREETING}\n(Type exit or press Ctrl-D to quit.)")
+    while True:
+        try:
+            message = (await asyncio.to_thread(input, "\n> ")).strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return
+        if message.lower() in ("exit", "quit"):
+            return
+        if not message:
+            continue
+        try:
+            reply = await session.send(message)
+        except (AgentsException, openai.APIError) as exc:
+            logging.error(f"The agent failed: {exc}")
+            continue
+        print(f"\n{reply}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="command", required=True)
+
+    subparser.add_parser(
+        "chat", help="Talk with the agent: audit a project, then open a pull request with pods."
+    )
 
     audit = subparser.add_parser("audit", help="Audit one repository; prints the report as JSON.")
     audit.add_argument("--repo", type=Path, required=True)

@@ -3,8 +3,16 @@
 An agent that audits AppLovin MAX SDK integrations in iOS apps, read-only. Separately, `adtech
 install` installs or updates the AppLovinSDK and the Google/Unity Ads adapter pods through a GitHub
 pull request; it never edits the publisher's checkout, builds, merges or changes mediation settings.
+`adtech chat` puts both behind a conversation with the publisher.
 
-The agent (iOS MAX Audit Agent, OpenAI Agents SDK) has three tools:
+The chat agent (MAX Chat Agent) asks for the project (local path or GitHub URL), runs the audit,
+explains the findings, recommends the missing adapters or an SDK update, opens the pull request
+once the publisher agrees, and asks about ad formats (advice only). It has two tools:
+`audit_project` (the auditor below, on a temporary clone for GitHub URLs) and `install_pods` (the
+pull request, only for the project it audited). Conversations live in `ChatSession`, shared by
+the terminal and, later, Slack.
+
+The auditor (iOS MAX Audit Agent, OpenAI Agents SDK) has three tools:
 
 - `inspect_app_project`: AppLovin pods from each `Podfile` (version constraints exactly as written,
   and whether the `AppLovinSDK` constraint allows the newest release), and per `Info.plist` the SDK
@@ -30,6 +38,7 @@ cp .env.example .env    # then set OPENAI_API_KEY
 ## Run
 
 ```bash
+uv run adtech chat                     # talk with the agent; pull requests need the GitHub App below
 uv run adtech audit --repo tests/fixtures/ios_swift_max_clean   # prints the report as JSON
 uv run adtech eval                     # every case in tests/evals/cases.jsonl; calls the model per case
                                        # results (pass/fail, misses, reports): eval-results/<time>.json
@@ -39,7 +48,7 @@ uv run adtech install --repo <local repo or GitHub URL> --pod AppLovinMediationU
 
 ## Pull requests (GitHub App)
 
-`adtech install` works in a temporary copy: a git worktree of a local repository (whose `origin`
+`adtech install` (and `install_pods` in the chat) works in a temporary copy: a git worktree of a local repository (whose `origin`
 must be on GitHub), or a clone of a GitHub URL, on a new `corvint/install-pods-<time>` branch off
 the default branch. It edits the `Podfile` (and, for the AdMob adapter, adds a placeholder
 `GADApplicationIdentifier` to the app's `Info.plist` if it has none), commits as the app, pushes
@@ -71,7 +80,10 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pyt
 
 ```text
 src/adtech_agents/
-  agents/ios_max_audit_agent.py  the agent: prompt and tool list
+  chat_session.py            ChatSession: one conversation, shared by every interface
+  agents/max_chat_agent.py   the chat agent: prompt and tool list
+  tools/chat_tools.py        audit_project and install_pods, per-conversation state
+  agents/ios_max_audit_agent.py  the auditor: prompt and tool list
   workflows/audit_max_integration_workflow.py  audit_max_integration: run, validate evidence
   tools/inspect_app_project.py Podfile and Info.plist parsing; rejects Unity and oversized projects
   tools/code_search.py       repo walking, path guard, search and line reads
@@ -85,7 +97,7 @@ src/adtech_agents/
   evals.py                   fixture eval runner and scoring
   config.py                  `Config`: settings (API key from the environment, turns, eval suite)
   context.py                 `Context`: config + task manager, created by the CLI and passed down
-  cli.py                     `adtech audit` / `adtech eval` / `adtech install`
+  cli.py                     `adtech chat` / `audit` / `eval` / `install`
 tests/                       unit tests, fixtures/ (generated Xcode projects), evals/
                              (cases.jsonl, ablation.md: eval history per change)
 ```
