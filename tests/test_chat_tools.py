@@ -3,11 +3,12 @@ from __future__ import annotations
 import asyncio
 from collections.abc import Iterator
 from dataclasses import dataclass, field
+from importlib import resources
 from pathlib import Path
 
 import pytest
 
-from adtech_agents.agents.max_chat_agent import build_max_chat_agent
+from adtech_agents.agents.max_chat_agent import build_max_chat_agent, load_chat_text
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.github_app import GitHubError
@@ -126,10 +127,23 @@ def test_github_failures_reach_the_model(
         asyncio.run(audit_project(_state(ctx), GITHUB_URL))
 
 
+LOCALES = sorted(p.name for p in (resources.files("adtech_agents") / "prompts").iterdir())
+
+
+@pytest.mark.parametrize("locale", LOCALES)
 @pytest.mark.parametrize("allow_local_paths", [True, False])
-def test_chat_agent_lists_supported_pods(allow_local_paths: bool) -> None:
-    agent = build_max_chat_agent(allow_local_paths)
+def test_chat_text_fills_every_placeholder(locale: str, allow_local_paths: bool) -> None:
+    text = load_chat_text(locale)
+    agent = build_max_chat_agent(text, allow_local_paths)
     assert [tool.name for tool in agent.tools] == ["audit_project", "install_pods"]
     assert isinstance(agent.instructions, str)
-    assert f"- {GOOGLE_POD}\n" in agent.instructions
-    assert ("local directory path" in agent.instructions) is allow_local_paths
+    assert GOOGLE_POD in agent.instructions
+    assert "{" not in agent.instructions
+    hint = text.source_hint_local if allow_local_paths else text.source_hint_github
+    assert hint in agent.instructions
+
+
+def test_unknown_locale() -> None:
+    assert LOCALES == ["en"]
+    with pytest.raises(ValueError, match="no chat text for locale 'xx'"):
+        load_chat_text("xx")

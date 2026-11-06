@@ -1,6 +1,6 @@
 """
 `ChatSession`: one conversation with a publisher, shared by every interface (terminal now, Slack
-later). The interface passes in each message and shows the reply.
+later). The interface shows `text.greeting`, passes in each message and shows the reply.
 """
 
 from __future__ import annotations
@@ -9,22 +9,20 @@ import asyncio
 
 from agents import RunConfig, Runner, TResponseInputItem
 
-from adtech_agents.agents.max_chat_agent import build_max_chat_agent
+from adtech_agents.agents.max_chat_agent import build_max_chat_agent, load_chat_text
 from adtech_agents.context import Context
 from adtech_agents.tools.chat_tools import ChatState
-
-GREETING = (
-    "Hi, I'm Corvint. I audit AppLovin MAX integrations in iOS apps and can open a pull request "
-    "with the pods your app needs. Which project should I look at?"
-)
 
 
 class ChatSession:
     def __init__(self, ctx: Context, allow_local_paths: bool) -> None:
         self._ctx = ctx
+        self.text = load_chat_text(ctx.config.CHAT_LOCALE)
         self._state = ChatState(ctx=ctx, allow_local_paths=allow_local_paths)
-        self._agent = build_max_chat_agent(allow_local_paths)
-        self._history: list[TResponseInputItem] = [{"role": "assistant", "content": GREETING}]
+        self._agent = build_max_chat_agent(self.text, allow_local_paths)
+        self._history: list[TResponseInputItem] = [
+            {"role": "assistant", "content": self.text.greeting}
+        ]
         # Replies run one at a time, so a second message waits for the first reply
         self._lock = asyncio.Lock()
 

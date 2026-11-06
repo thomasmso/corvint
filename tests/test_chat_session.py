@@ -15,7 +15,8 @@ from openai.types.responses import (
 )
 
 from adtech_agents import chat_session
-from adtech_agents.chat_session import GREETING, ChatSession
+from adtech_agents.agents.max_chat_agent import ChatText
+from adtech_agents.chat_session import ChatSession
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.tools import chat_tools
@@ -69,8 +70,8 @@ def test_conversation_keeps_history_across_messages(monkeypatch: pytest.MonkeyPa
     )
     build = chat_session.build_max_chat_agent
 
-    def build_with_model(allow_local_paths: bool) -> Agent[ChatState]:
-        return build(allow_local_paths).clone(model=model)
+    def build_with_model(text: ChatText, allow_local_paths: bool) -> Agent[ChatState]:
+        return build(text, allow_local_paths).clone(model=model)
 
     async def fake_audit(state: ChatState, source: str) -> AuditResult:
         state.source = source
@@ -101,6 +102,7 @@ def test_conversation_keeps_history_across_messages(monkeypatch: pytest.MonkeyPa
         "Opened https://github.com/acme/puzzle/pull/1",
     ]
     history = json.dumps(model.inputs[2])
-    for earlier in (GREETING, "Audit https://github.com/acme/puzzle", "Google adapter missing."):
-        assert json.dumps(earlier)[1:-1] in history
+    earlier = [session.text.greeting, "Audit https://github.com/acme/puzzle", "adapter missing."]
+    for text in earlier:
+        assert json.dumps(text)[1:-1] in history
     assert "pull/1" in json.dumps(model.inputs[3])

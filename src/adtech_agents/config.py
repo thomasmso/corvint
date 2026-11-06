@@ -20,6 +20,10 @@ class Config:
     # Model turns per audit before the SDK raises `MaxTurnsExceeded`
     MAX_TURNS: int = 30
 
+    # --- Chat ---
+    # Folder under src/adtech_agents/prompts/ with the chat agent's text (only "en" so far).
+    CHAT_LOCALE: str = "en"
+
     # --- Project inspection ---
     # Max files supported per input project (excluding Pods/ and build output). Larger projects
     # raise `UnsupportedProjectError` instead of being audited on partial repository info.

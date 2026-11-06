@@ -16,7 +16,7 @@ from agents import AgentsException
 from agents import _debug as agents_debug
 from dotenv import find_dotenv, load_dotenv
 
-from adtech_agents.chat_session import GREETING, ChatSession
+from adtech_agents.chat_session import ChatSession
 from adtech_agents.config import Config
 from adtech_agents.context import Context
 from adtech_agents.evals import render_scores, run_suite, save_results
@@ -94,7 +94,7 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
 
 async def _chat(ctx: Context) -> None:
     session = ChatSession(ctx, allow_local_paths=True)
-    print(f"{GREETING}\n(Type exit or press Ctrl-D to quit.)")
+    print(f"{session.text.greeting}\n{session.text.terminal_quit_hint}")
     while True:
         try:
             message = (await asyncio.to_thread(input, "\n> ")).strip()

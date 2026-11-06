@@ -81,7 +81,8 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pyt
 ```text
 src/adtech_agents/
   chat_session.py            ChatSession: one conversation, shared by every interface
-  agents/max_chat_agent.py   the chat agent: prompt and tool list
+  agents/max_chat_agent.py   the chat agent: loads its text, tool list
+  prompts/<locale>/chat.toml the chat agent's text: instructions, greeting (only `en` so far)
   tools/chat_tools.py        audit_project and install_pods, per-conversation state
   agents/ios_max_audit_agent.py  the auditor: prompt and tool list
   workflows/audit_max_integration_workflow.py  audit_max_integration: run, validate evidence
