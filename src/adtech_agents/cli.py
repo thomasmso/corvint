@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+import sys
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -23,6 +24,7 @@ from adtech_agents.evals import render_scores, run_suite, save_results
 from adtech_agents.github_app import GitHubError
 from adtech_agents.project_changes import ChangeError
 from adtech_agents.reference_data import ADAPTER_PODS, ReferenceDataError
+from adtech_agents.step_logger import PROGRESS_LOGGER
 from adtech_agents.tools.inspect_app_project import SDK_POD, UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
 from adtech_agents.workflows.install_pods_workflow import install_pods
@@ -40,6 +42,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     logging.basicConfig(
         level=logging.WARNING if quiet else config.LOG_LEVEL, format=config.LOG_FORMAT
     )
+    if quiet:
+        # Except the auditor's readable steps, printed like the chat's other progress lines
+        progress = logging.getLogger(PROGRESS_LOGGER)
+        handler = logging.StreamHandler(sys.stdout)
+        handler.setFormatter(logging.Formatter("\n%(message)s"))
+        progress.addHandler(handler)
+        progress.setLevel(logging.INFO)
+        progress.propagate = False
     if config.LOG_AGENT_DATA:
         agents_debug.DONT_LOG_MODEL_DATA = False
         agents_debug.DONT_LOG_TOOL_DATA = False

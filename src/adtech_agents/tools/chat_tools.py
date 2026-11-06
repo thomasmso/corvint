@@ -7,6 +7,7 @@ project the publisher named and chooses pods.
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections.abc import Awaitable, Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -115,6 +116,7 @@ async def audit_project(state: ChatState, source: str) -> AuditResult:
             raise ToolError(f"{source} is neither a local directory nor a GitHub repository URL")
         else:
             raise ToolError("only GitHub repository URLs are accepted, e.g. https://github.com/o/r")
+    logging.info(f"Audit report: {report.model_dump_json(indent=2)}")
     state.source = source
     return AuditResult(source=source, note=note, summary=report.summary, findings=report.findings)
 
