@@ -73,12 +73,19 @@ class GitHubApp:
         return str(self._request("GET", f"/repos/{repo}", token)["default_branch"])
 
     def create_pull_request(
-        self, repo: GitHubRepo, token: str, head: str, base: str, title: str, body: str
+        self,
+        repo: GitHubRepo,
+        token: str,
+        head: str,
+        base: str,
+        title: str,
+        body: str,
+        draft: bool = False,
     ) -> str:
         """
         Open a pull request from branch `head` into `base`; returns its URL.
         """
-        payload = {"title": title, "head": head, "base": base, "body": body}
+        payload = {"title": title, "head": head, "base": base, "body": body, "draft": draft}
         return str(self._request("POST", f"/repos/{repo}/pulls", token, payload)["html_url"])
 
     def bot_identity(self, token: str) -> tuple[str, str]:

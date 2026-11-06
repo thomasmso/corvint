@@ -2,7 +2,8 @@
 
 An agent that audits AppLovin MAX SDK integrations in iOS apps, read-only. Separately, `adtech
 install` installs or updates the AppLovinSDK and the Google/Unity Ads adapter pods through a GitHub
-pull request; it never edits the publisher's checkout, builds, merges or changes mediation settings.
+pull request, after checking that the changed copy still builds; it never edits the publisher's
+checkout, merges or changes mediation settings.
 `adtech chat` puts both behind a conversation with the publisher.
 
 The chat agent (MAX Chat Agent) asks for the project (local path or GitHub URL), runs the audit,
@@ -52,8 +53,24 @@ uv run adtech install --repo <local repo or GitHub URL> --pod AppLovinMediationU
 `adtech install` (and `install_pods` in the chat) works in a temporary copy: a git worktree of a local repository (whose `origin`
 must be on GitHub), or a clone of a GitHub URL, on a new `corvint/install-pods-<time>` branch off
 the default branch. It edits the `Podfile` (and, for the AdMob adapter, adds a placeholder
-`GADApplicationIdentifier` to the app's `Info.plist` if it has none), commits as the app, pushes
-the branch and opens a pull request marked "not built or tested". The copy is then deleted.
+`GADApplicationIdentifier` to the app's `Info.plist` if it has none), builds it (below), commits
+the changed files as the app, pushes the branch and opens the pull request. The copy is then
+deleted.
+
+### Build check
+
+Before each pull request, `build_check.py` runs `pod install` and then `xcodebuild build` of the
+project's only scheme for `generic/platform=iOS Simulator` with `CODE_SIGNING_ALLOWED=NO`, in the
+temporary copy. The pull request body states the result: built (compiled only; not run or
+tested), failed (the pull request is a draft, with the error lines from the log), or skipped
+(Xcode or CocoaPods missing, several `.xcodeproj` files or schemes). Only the changed files are
+committed, not `Podfile.lock` or `Pods/`.
+
+A Podfile is Ruby and build phases are scripts, so this runs the repository's code on your
+machine. The commands get a minimal environment (`PATH`, `HOME`, locale; no API keys or GitHub
+App settings) and run only on projects you named: a local path in the terminal, or a repository
+the GitHub App is installed on. The first build of a project downloads and compiles every pod
+and can take several minutes (`BUILD_TIMEOUT_SECONDS` per command).
 
 One-time setup:
 
@@ -91,7 +108,8 @@ src/adtech_agents/
   tools/code_search.py       repo walking, path guard, search and line reads
   reference_data.py          newest SDK and adapter versions, AppLovin SKAdNetwork IDs (fixed URLs)
   project_changes.py         Podfile pod lines and AdMob app ID placeholder: plan, diff, apply
-  workflows/install_pods_workflow.py  install_pods: workspace, changes, pull request (all interfaces)
+  workflows/install_pods_workflow.py  install_pods: workspace, changes, build, pull request
+  build_check.py             pod install + xcodebuild for the simulator, minimal environment
   workspace.py               temporary worktree or clone, commit, push, open the pull request
   github_app.py              GitHub App: installation tokens, default branch, pull requests
   rules.py                   rule ids shared by the prompt and the evals
@@ -108,5 +126,6 @@ tests/                       unit tests, fixtures/ (generated Xcode projects), e
 
 Unity and Android, adapter versions and SKAdNetwork IDs of networks other than AppLovin, choosing
 the model, Swift Package Manager installs, documentation lookup, adapter/SDK compatibility checks,
-runtime checks (builds, devices), any HTTP API, CI pipelines,
+runtime checks (simulator runs, devices), builds on a remote macOS runner, any HTTP API, CI
+pipelines,
 multi-agent orchestration. Eval results so far: `tests/evals/ablation.md`.

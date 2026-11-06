@@ -58,6 +58,9 @@ class ChatSession:
             return
         line = {
             "auditing": self.text.progress_auditing,
+            "copying": self.text.progress_copying,
+            "installing_pods": self.text.progress_installing_pods,
+            "compiling": self.text.progress_compiling,
             "opening_pull_request": self.text.progress_opening_pull_request,
         }[step]
         await self._on_progress(line.format(source=source))

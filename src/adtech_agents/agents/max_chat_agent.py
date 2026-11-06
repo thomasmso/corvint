@@ -30,9 +30,12 @@ class ChatText:
     source_hint_local: str
     source_hint_github: str
     progress_auditing: str
+    progress_copying: str
+    progress_installing_pods: str
+    progress_compiling: str
     progress_opening_pull_request: str
     """
-    Progress lines take `{source}`, the project as the publisher gave it.
+    Progress lines may use `{source}`, the project as the publisher gave it.
     """
     instructions: str
     """

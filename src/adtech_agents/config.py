@@ -59,6 +59,11 @@ class Config:
     PULL_REQUEST_BRANCH_PREFIX: str = "corvint/install-pods-"
     GIT_TIMEOUT_SECONDS: float = 300.0
 
+    # --- Build check (before each pull request; skipped when Xcode or CocoaPods is missing) ---
+    BUILD_DESTINATION: str = "generic/platform=iOS Simulator"
+    # Per command (`pod install`, `xcodebuild`); a first build downloads and compiles every pod.
+    BUILD_TIMEOUT_SECONDS: float = 1800.0
+
     # --- Evals ---
     # Relative to the working directory: run `adtech eval` from the repository root.
     EVAL_SUITE: Path = Path("tests/evals/cases.jsonl")

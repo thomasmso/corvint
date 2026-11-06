@@ -81,7 +81,9 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
         # If want to test manually install pods (debugging shortcut essentially)
         case "install":
             try:
-                result = install_pods(args.repo, args.pod, ctx)
+                result = install_pods(
+                    args.repo, args.pod, ctx, on_step=lambda step: logging.info(f"Step: {step}")
+                )
             except (ReferenceDataError, GitHubError, WorkspaceError, ChangeError) as exc:
                 logging.error(f"Cannot install: {exc}")
                 return 1
@@ -89,7 +91,12 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
                 print("Nothing to change: every pod already allows its newest version.")
             else:
                 print(result.diff)
-                print(f"Opened {result.pull_request_url}")
+                if result.build is not None:
+                    print(result.build.summary)
+                    if result.build.log_tail:
+                        print(result.build.log_tail)
+                kind = "a draft pull request" if result.draft else "a pull request"
+                print(f"Opened {kind}: {result.pull_request_url}")
             return 0
         case _:
             logging.error(f"Unknown command: {args.command}")

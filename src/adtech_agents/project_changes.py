@@ -106,6 +106,13 @@ def apply_changes(root: Path, changes: list[FileChange]) -> None:
         path.write_text(change.new, encoding="utf-8")
 
 
+def podfile_path(root: Path) -> str:
+    """
+    Repo-relative path of the only Podfile; `ChangeError` if there is not exactly one.
+    """
+    return _podfile(list(iter_files(root)))
+
+
 def _podfile(files: list[str]) -> str:
     podfiles = [file for file in files if PurePosixPath(file).name == "Podfile"]
     if len(podfiles) != 1:

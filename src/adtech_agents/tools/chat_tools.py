@@ -24,10 +24,10 @@ from adtech_agents.schemas import AuditReport, Finding
 from adtech_agents.tools.common import ToolError, tool_error
 from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
-from adtech_agents.workflows.install_pods_workflow import InstallResult, install_pods
+from adtech_agents.workflows.install_pods_workflow import InstallResult, InstallStep, install_pods
 from adtech_agents.workspace import WorkspaceError, open_workspace
 
-Progress = Literal["auditing", "opening_pull_request"]
+Progress = Literal["auditing", InstallStep]
 
 
 @dataclass
@@ -83,9 +83,11 @@ async def audit_project_tool(ctx: RunContextWrapper[ChatState], source: str) -> 
 @function_tool(name_override="install_pods", failure_error_function=tool_error)
 async def install_pods_tool(ctx: RunContextWrapper[ChatState], pods: list[str]) -> str:
     """
-    Add or update pods in the audited project's Podfile at their newest versions and open a
-    GitHub pull request. Adding the AdMob adapter also adds a placeholder AdMob app ID to the
-    app's Info.plist. Returns the pull request URL (null if nothing needed changing) and the diff.
+    Add or update pods in the audited project's Podfile at their newest versions, run
+    `pod install` and build for the iOS Simulator, then open a GitHub pull request (a draft if the
+    build failed). Adding the AdMob adapter also adds a placeholder AdMob app ID to the app's
+    Info.plist. Returns the pull request URL (null if nothing needed changing), whether it is a
+    draft, the build result (status, summary, log excerpt) and the diff.
 
     Args:
         pods: Pod names from the supported list in your instructions, all in one call.
@@ -122,10 +124,18 @@ async def install(state: ChatState, pods: list[str]) -> InstallResult:
         raise ToolError("audit a project with audit_project first")
     if not pods:
         raise ToolError("name at least one pod")
-    await state.report("opening_pull_request", state.source)
+    source = state.source
+    loop = asyncio.get_running_loop()
+
+    def on_step(step: InstallStep) -> None:
+        # Runs on the worker thread; waits so the line is shown before the step starts
+        asyncio.run_coroutine_threadsafe(state.report(step, source), loop).result()
+
     with _as_tool_errors():
         reference = await _reference_data(state)
-        return await asyncio.to_thread(install_pods, state.source, pods, state.ctx, reference)
+        return await asyncio.to_thread(
+            install_pods, source, pods, state.ctx, reference, on_step=on_step
+        )
 
 
 async def _audit_github(

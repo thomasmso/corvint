@@ -20,7 +20,6 @@ from pathlib import Path
 
 from adtech_agents.config import Config
 from adtech_agents.github_app import GitHubApp, GitHubRepo, parse_github_url
-from adtech_agents.project_changes import FileChange, apply_changes
 
 
 class WorkspaceError(Exception):
@@ -104,23 +103,24 @@ def open_workspace(source: str, github: GitHubApp, config: Config) -> Workspace:
 
 def open_pull_request(
     workspace: Workspace,
-    changes: list[FileChange],
+    paths: list[str],
     title: str,
     body: str,
     github: GitHubApp,
     config: Config,
+    draft: bool = False,
 ) -> str:
     """
-    Apply `changes` in the copy, commit them as the app, push the branch and open a pull request
-    into the default branch; returns its URL. The agent never merges.
+    Commit the already applied changes to `paths` as the app (and nothing else the build left in
+    the copy), push the branch and open a pull request into the default branch; returns its URL.
+    The agent never merges.
     """
-    if not changes:
+    if not paths:
         raise WorkspaceError("no changes to submit")
-    apply_changes(workspace.root, changes)
-    # Tokens expire after an hour and a chat can outlast that, so get a fresh one
+    # Tokens expire after an hour and a chat (or a build) can outlast that, so get a fresh one
     token = github.installation_token(workspace.repo)
     name, email = github.bot_identity(token)
-    _git(["add", "--", *(change.path for change in changes)], workspace.root)
+    _git(["add", "--", *paths], workspace.root)
     author = {
         "GIT_AUTHOR_NAME": name,
         "GIT_AUTHOR_EMAIL": email,
@@ -135,7 +135,7 @@ def open_pull_request(
         _auth_env(token, config),
     )
     return github.create_pull_request(
-        workspace.repo, token, workspace.branch, workspace.base, title, body
+        workspace.repo, token, workspace.branch, workspace.base, title, body, draft
     )
 
 

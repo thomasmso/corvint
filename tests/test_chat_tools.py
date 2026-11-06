@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import asyncio
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass, field
 from importlib import resources
 from pathlib import Path
+from typing import get_args
 
 import pytest
 
@@ -15,9 +16,9 @@ from adtech_agents.github_app import GitHubError
 from adtech_agents.reference_data import ReferenceData, load_reference_data
 from adtech_agents.schemas import AuditReport
 from adtech_agents.tools import chat_tools
-from adtech_agents.tools.chat_tools import ChatState, audit_project, install
+from adtech_agents.tools.chat_tools import ChatState, Progress, audit_project, install
 from adtech_agents.tools.common import ToolError
-from adtech_agents.workflows.install_pods_workflow import InstallResult
+from adtech_agents.workflows.install_pods_workflow import InstallResult, InstallStep
 from tests.conftest import FIXTURES, REFERENCE_DATA
 
 PROJECT = FIXTURES / "ios_swift_max_network_missing_admob"
@@ -61,10 +62,16 @@ def calls(monkeypatch: pytest.MonkeyPatch) -> Calls:
             calls.closed += 1
 
     def fake_install(
-        source: str, pods: list[str], ctx: Context, reference: ReferenceData
+        source: str,
+        pods: list[str],
+        ctx: Context,
+        reference: ReferenceData,
+        on_step: Callable[[InstallStep], None],
     ) -> InstallResult:
         assert reference is SNAPSHOT
         calls.installed.append((source, pods))
+        for step in get_args(InstallStep):
+            on_step(step)
         return InstallResult(pull_request_url=f"{source}/pull/1", diff="+  pod ...")
 
     monkeypatch.setattr(chat_tools, "audit_max_integration", fake_audit)
@@ -98,7 +105,13 @@ def test_slow_steps_report_progress(ctx: Context, calls: Calls) -> None:
     state.on_progress = record
     asyncio.run(audit_project(state, GITHUB_URL))
     asyncio.run(install(state, [GOOGLE_POD]))
-    assert steps == [("auditing", GITHUB_URL), ("opening_pull_request", GITHUB_URL)]
+    assert steps == [
+        ("auditing", GITHUB_URL),
+        ("copying", GITHUB_URL),
+        ("installing_pods", GITHUB_URL),
+        ("compiling", GITHUB_URL),
+        ("opening_pull_request", GITHUB_URL),
+    ]
 
     steps.clear()
     with pytest.raises(ToolError):
@@ -159,9 +172,9 @@ def test_chat_text_fills_every_placeholder(locale: str, allow_local_paths: bool)
     assert "{" not in agent.instructions
     hint = text.source_hint_local if allow_local_paths else text.source_hint_github
     assert hint in agent.instructions
-    for line in (text.progress_auditing, text.progress_opening_pull_request):
-        assert "{" not in line.format(source=GITHUB_URL)
-        assert GITHUB_URL in line.format(source=GITHUB_URL)
+    for step in get_args(Progress):
+        line = getattr(text, f"progress_{step}").format(source=GITHUB_URL)
+        assert line and "{" not in line
 
 
 def test_unknown_locale() -> None:
