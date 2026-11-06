@@ -162,7 +162,7 @@ def _excerpt(output: str, cwd: Path) -> str:
     (compiler invocations run to thousands of characters) are cut.
     """
     # Xcode prints /tmp and /var paths without the /private that resolve() adds on macOS
-    for prefix in {str(cwd), str(cwd).removeprefix("/private")}:
+    for prefix in sorted({str(cwd), str(cwd).removeprefix("/private")}, key=len, reverse=True):
         output = output.replace(prefix + "/", "")
     lines = output.strip().splitlines()
     errors = list(dict.fromkeys(line.strip() for line in lines if "error:" in line))
