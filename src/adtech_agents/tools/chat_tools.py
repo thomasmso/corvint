@@ -59,8 +59,8 @@ class AuditResult(BaseModel):
 @function_tool(name_override="audit_project", failure_error_function=tool_error)
 async def audit_project_tool(ctx: RunContextWrapper[ChatState], source: str) -> str:
     """
-    Audit the AppLovin MAX integration of an iOS project; takes a few minutes. Returns a summary
-    and findings with file and line evidence.
+    Audit the AppLovin MAX integration of an iOS project. Returns a summary and findings with
+    file and line evidence.
 
     Args:
         source: The project exactly as the publisher gave it: a GitHub repository URL, or a local
