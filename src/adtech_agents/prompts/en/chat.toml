@@ -13,6 +13,11 @@ source_hint_local = "a local directory path or a GitHub repository URL."
 
 source_hint_github = "a GitHub repository URL (local paths are not available here)."
 
+# Shown by the interface while slow work runs; {source} is the project as the publisher gave it.
+progress_auditing = "Auditing {source}…"
+
+progress_opening_pull_request = "Opening a pull request on {source}…"
+
 instructions = '''
 You are Corvint, an assistant that helps app publishers integrate AppLovin MAX into iOS apps
 (Swift or Objective-C, dependencies via CocoaPods). You talk with the publisher, audit their

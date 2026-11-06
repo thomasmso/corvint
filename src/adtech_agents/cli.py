@@ -35,7 +35,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     config = Config()
 
-    logging.basicConfig(level=config.LOG_LEVEL, format=config.LOG_FORMAT)
+    # The chat shows its own progress lines; per-request logs would bury the conversation
+    quiet = args.command == "chat" and not args.verbose
+    logging.basicConfig(
+        level=logging.WARNING if quiet else config.LOG_LEVEL, format=config.LOG_FORMAT
+    )
     if config.LOG_AGENT_DATA:
         agents_debug.DONT_LOG_MODEL_DATA = False
         agents_debug.DONT_LOG_TOOL_DATA = False
@@ -93,7 +97,10 @@ def _run(args: argparse.Namespace, ctx: Context) -> int:
 
 
 async def _chat(ctx: Context) -> None:
-    session = ChatSession(ctx, allow_local_paths=True)
+    async def show_progress(line: str) -> None:
+        print(f"\n{line}", flush=True)
+
+    session = ChatSession(ctx, allow_local_paths=True, on_progress=show_progress)
     print(f"{session.text.greeting}\n{session.text.terminal_quit_hint}")
     while True:
         try:
@@ -117,8 +124,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="command", required=True)
 
-    subparser.add_parser(
+    chat = subparser.add_parser(
         "chat", help="Talk with the agent: audit a project, then open a pull request with pods."
+    )
+    chat.add_argument(
+        "--verbose", action="store_true", help="Also log HTTP requests and every agent step."
     )
 
     audit = subparser.add_parser("audit", help="Audit one repository; prints the report as JSON.")

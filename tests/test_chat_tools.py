@@ -88,6 +88,24 @@ def test_audit_then_install_a_local_project(ctx: Context, calls: Calls) -> None:
     assert installed.pull_request_url == f"{PROJECT}/pull/1"
 
 
+def test_slow_steps_report_progress(ctx: Context, calls: Calls) -> None:
+    steps: list[tuple[str, str]] = []
+
+    async def record(step: str, source: str) -> None:
+        steps.append((step, source))
+
+    state = _state(ctx)
+    state.on_progress = record
+    asyncio.run(audit_project(state, GITHUB_URL))
+    asyncio.run(install(state, [GOOGLE_POD]))
+    assert steps == [("auditing", GITHUB_URL), ("opening_pull_request", GITHUB_URL)]
+
+    steps.clear()
+    with pytest.raises(ToolError):
+        asyncio.run(audit_project(state, "not a project"))
+    assert steps == []
+
+
 def test_audit_a_github_url_in_a_temporary_clone(ctx: Context, calls: Calls) -> None:
     state = _state(ctx, allow_local_paths=False)
     result = asyncio.run(audit_project(state, GITHUB_URL))
@@ -141,6 +159,9 @@ def test_chat_text_fills_every_placeholder(locale: str, allow_local_paths: bool)
     assert "{" not in agent.instructions
     hint = text.source_hint_local if allow_local_paths else text.source_hint_github
     assert hint in agent.instructions
+    for line in (text.progress_auditing, text.progress_opening_pull_request):
+        assert "{" not in line.format(source=GITHUB_URL)
+        assert GITHUB_URL in line.format(source=GITHUB_URL)
 
 
 def test_unknown_locale() -> None:

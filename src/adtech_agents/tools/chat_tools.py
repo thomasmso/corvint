@@ -7,10 +7,11 @@ project the publisher named and chooses pods.
 from __future__ import annotations
 
 import asyncio
-from collections.abc import Iterator
+from collections.abc import Awaitable, Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 from agents import RunContextWrapper, function_tool
 from pydantic import BaseModel
@@ -25,6 +26,8 @@ from adtech_agents.tools.inspect_app_project import UnsupportedProjectError
 from adtech_agents.workflows.audit_max_integration_workflow import audit_max_integration
 from adtech_agents.workflows.install_pods_workflow import InstallResult, install_pods
 from adtech_agents.workspace import WorkspaceError, open_workspace
+
+Progress = Literal["auditing", "opening_pull_request"]
 
 
 @dataclass
@@ -47,6 +50,14 @@ class ChatState:
     """
     Fetched once per conversation, so the audit and the pull request agree on versions.
     """
+    on_progress: Callable[[Progress, str], Awaitable[None]] | None = None
+    """
+    Called when slow work starts, with the step and the project, so the interface can show it.
+    """
+
+    async def report(self, step: Progress, source: str) -> None:
+        if self.on_progress is not None:
+            await self.on_progress(step, source)
 
 
 class AuditResult(BaseModel):
@@ -86,10 +97,13 @@ async def audit_project(state: ChatState, source: str) -> AuditResult:
     source = source.strip()
     local = Path(source).expanduser()
     with _as_tool_errors():
-        reference = await _reference_data(state)
         if parse_github_url(source) is not None:
+            await state.report("auditing", source)
+            reference = await _reference_data(state)
             report, note = await _audit_github(state, source, reference)
         elif state.allow_local_paths and local.is_dir():
+            await state.report("auditing", source)
+            reference = await _reference_data(state)
             report = await audit_max_integration(local, state.ctx, reference)
             note = (
                 "Audited the local checkout, including uncommitted changes. Pull requests start "
@@ -108,6 +122,7 @@ async def install(state: ChatState, pods: list[str]) -> InstallResult:
         raise ToolError("audit a project with audit_project first")
     if not pods:
         raise ToolError("name at least one pod")
+    await state.report("opening_pull_request", state.source)
     with _as_tool_errors():
         reference = await _reference_data(state)
         return await asyncio.to_thread(install_pods, state.source, pods, state.ctx, reference)
